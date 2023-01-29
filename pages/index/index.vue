@@ -1,9 +1,12 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1500">
+			<swiper-item class="swiper-item" v-for="(item,index) in headerList" :key="index">
+			
+				<image :src="item.imgUrl" mode="aspectFill"></image>
+			</swiper-item>
+		</swiper>
+
 	</view>
 </template>
 
@@ -11,7 +14,13 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				headerList: [{
+					imgUrl: '/static/image/header1.jpg',
+					linkUrl: '',
+				}, {
+					imgUrl: '/static/image/header2.jpg',
+					linkUrl: '',
+				}, ]
 			}
 		},
 		onLoad() {
@@ -24,12 +33,26 @@
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+	.swiper {
+		height: 400rpx;
+		padding: 20rpx;
+		
 	}
+
+	.swiper-item {
+		display: block;
+		height: 400rpx;
+		line-height: 400rpx;
+		text-align: center;
+		border-radius: 20rpx;
+	}
+
+	.swiper-item image {
+		width: 100%;
+		height: 400rpx;
+	}
+
+	
 
 	.logo {
 		height: 200rpx;
