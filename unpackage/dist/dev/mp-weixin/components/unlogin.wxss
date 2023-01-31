@@ -1,0 +1,16 @@
+
+.content {
+		margin-top: 500rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+}
+button {
+		justify-content: center;
+		margin-top: 30rpx;
+		width: 60%;
+}
+.title {
+		font-size: 36rpx;
+}

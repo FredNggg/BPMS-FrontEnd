@@ -1,0 +1,1 @@
+<view><navigator url="{{c}}" class="icon"><image class="image" src="{{a}}"></image><text class="name">{{b}}</text></navigator></view>

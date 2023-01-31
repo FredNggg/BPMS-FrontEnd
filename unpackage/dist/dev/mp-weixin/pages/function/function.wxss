@@ -1,0 +1,6 @@
+
+.icon-wall {
+		margin: 40rpx 40rpx;
+		display: flex;
+		flex-wrap: wrap;
+}

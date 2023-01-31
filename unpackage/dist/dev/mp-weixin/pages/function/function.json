@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "功能",
-  "usingComponents": {}
+  "usingComponents": {
+    "icon-button": "../../components/IconButton"
+  }
 }

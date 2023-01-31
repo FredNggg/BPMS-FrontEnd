@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/function/function",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/about/login",
+    "pages/about/register"
   ],
   "window": {
     "navigationBarTextStyle": "black",

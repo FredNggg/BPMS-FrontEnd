@@ -1,1 +1,1 @@
-<view class="content"><image class="logo" src="/static/logo.png"></image><view class="text-area"><text class="title">{{a}}</text></view></view>
+<view class="content"><swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1500"><swiper-item wx:for="{{a}}" wx:for-item="item" wx:key="b" class="swiper-item"><image src="{{item.a}}" mode="aspectFill"></image></swiper-item></swiper></view>
