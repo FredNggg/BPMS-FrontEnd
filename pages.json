@@ -16,7 +16,10 @@
 		{
 			"path": "pages/about/about", // 我的
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#67d3fa",
+				"backgroundColor": "#67d3fa",
+				"disableScroll": true
 			}
 		},
 		{

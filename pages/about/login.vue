@@ -1,8 +1,8 @@
 <template>
-	<button @tap="login(1)">
+	<button @tap="login(0)">
 		点击以营销人员身份登录
 	</button>
-	<button @tap="login(0)">
+	<button @tap="login(1)">
 		点击以管理员身份登录
 	</button>
 </template>

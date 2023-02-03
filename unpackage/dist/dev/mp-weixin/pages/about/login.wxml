@@ -1,1 +1,1 @@
-<button> 点击以营销人员身份登录 </button><button> 点击以管理员身份登录 </button>
+<button bindtap="{{a}}"> 点击以营销人员身份登录 </button><button bindtap="{{b}}"> 点击以管理员身份登录 </button>

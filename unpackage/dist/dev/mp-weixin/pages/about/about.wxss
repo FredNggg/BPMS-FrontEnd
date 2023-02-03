@@ -1,0 +1,20 @@
+
+.info {
+		display: flex;
+		flex-direction: column;
+		background-color: #67d3fa;
+		flex: 1;
+		height: 100%;
+}
+.abstract {
+		height: 300rpx;
+}
+.others {
+		flex: 1;
+		background-color: #f8f8f8;
+		border-top-left-radius: 80rpx;
+		border-top-right-radius: 80rpx;
+}
+.quit {
+		width: 80%;
+}
