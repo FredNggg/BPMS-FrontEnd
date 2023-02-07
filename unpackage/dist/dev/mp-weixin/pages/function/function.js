@@ -1,14 +1,20 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_functionMenu = require("../../common/function-menu.js");
 const IconButton = () => "../../components/IconButton.js";
 const _sfc_main = {
   components: {
     IconButton
   },
   data() {
-    return {};
+    return {
+      functionList: []
+    };
   },
-  methods: {}
+  methods: {},
+  onLoad() {
+    this.functionList = common_vendor.index.getStorageSync("roleId") === 0 ? common_functionMenu.MARKETER_LIST : common_functionMenu.ADMIN_LIST;
+  }
 };
 if (!Array) {
   const _component_icon_button = common_vendor.resolveComponent("icon-button");
@@ -16,40 +22,20 @@ if (!Array) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "\u4EA7\u54C1\u7BA1\u7406"
-    }),
-    b: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
-    }),
-    c: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
-    }),
-    d: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
-    }),
-    e: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
-    }),
-    f: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
-    }),
-    g: common_vendor.p({
-      ["nav-url"]: "/pages/about/register",
-      ["img-url"]: "/static/icon/image/my.png",
-      text: "666"
+    a: common_vendor.f($data.functionList, (item, k0, i0) => {
+      return {
+        a: common_vendor.t(item.title),
+        b: common_vendor.f(item.functions, (func, k1, i1) => {
+          return {
+            a: "9df2b800-0-" + i0 + "-" + i1,
+            b: common_vendor.p({
+              ["nav-url"]: func.pagePath,
+              ["img-url"]: func.iconPath,
+              text: func.name
+            })
+          };
+        })
+      };
     })
   };
 }

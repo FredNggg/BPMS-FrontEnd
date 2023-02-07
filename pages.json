@@ -5,7 +5,7 @@
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
-			
+
 		},
 		{
 			"path": "pages/function/function", // 功能
@@ -23,10 +23,82 @@
 			}
 		},
 		{
-			"path": "pages/about/login" 
+			"path": "pages/about/login"
 		},
 		{
-			"path": "pages/about/register" 
+			"path": "pages/about/register"
+		},
+		{
+			"path": "pages/product/ProductReserve", // 功能
+			"style": {
+				"navigationBarTitleText": "产品预约"
+			}
+		},
+		{
+			"path": "pages/product/ProductList",
+			"style": {
+				"navigationBarTitleText": "产品列表"
+			}
+		},{
+			"path": "pages/product/ProductHistory",
+			"style": {
+				"navigationBarTitleText": "产品记录"
+			}
+		},{
+			"path": "pages/merchant/MerchantCreate",
+			"style": {
+				"navigationBarTitleText": "商户建档"
+			}
+		},{
+			"path": "pages/merchant/MerchantView",
+			"style": {
+				"navigationBarTitleText": "我的建档"
+			}
+		},{
+			"path": "pages/grid/GridTrack",
+			"style": {
+				"navigationBarTitleText": "我的轨迹"
+			}
+		},{
+			"path": "pages/grid/GridManage",
+			"style": {
+				"navigationBarTitleText": "网格分析"
+			}
+		},{
+			"path": "pages/product/ProductCreate",
+			"style": {
+				"navigationBarTitleText": "产品发布"
+			}
+		},{
+			"path": "pages/product/ProductManage",
+			"style": {
+				"navigationBarTitleText": "产品管理"
+			}
+		},{
+			"path": "pages/user/UserCheck",
+			"style": {
+				"navigationBarTitleText": "人员审核"
+			}
+		},{
+			"path": "pages/user/UserManage",
+			"style": {
+				"navigationBarTitleText": "人员管理"
+			}
+		},{
+			"path": "pages/merchant/MerchantCheck",
+			"style": {
+				"navigationBarTitleText": "商户审核"
+			}
+		},{
+			"path": "pages/merchant/MerchantManage",
+			"style": {
+				"navigationBarTitleText": "商户管理"
+			}
+		},{
+			"path": "pages/grid/GridCheck",
+			"style": {
+				"navigationBarTitleText": "网格审核"
+			}
 		}
 	],
 	"globalStyle": {
@@ -55,7 +127,7 @@
 				"pagePath": "pages/about/about",
 				"iconPath": "static/icon/image/my.png",
 				"text": "我的"
-			} 
+			}
 		]
 	}
 }
