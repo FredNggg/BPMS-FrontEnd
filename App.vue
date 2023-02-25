@@ -1,6 +1,3 @@
-<style lang="scss">
-	@import "@/uni_modules/uview-plus/index.scss";
-</style>
 <script>
 	export default {
 		onLaunch: function() {
@@ -19,6 +16,5 @@
 	/*每个页面公共css */
 	page {
 		height: 100%;
-		background-color: #f8f8f8;
 	}
 </style>

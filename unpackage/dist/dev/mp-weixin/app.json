@@ -4,7 +4,21 @@
     "pages/function/function",
     "pages/about/about",
     "pages/about/login",
-    "pages/about/register"
+    "pages/about/register",
+    "pages/product/ProductReserve",
+    "pages/product/ProductList",
+    "pages/product/ProductHistory",
+    "pages/merchant/MerchantCreate",
+    "pages/merchant/MerchantView",
+    "pages/grid/GridTrack",
+    "pages/grid/GridManage",
+    "pages/product/ProductCreate",
+    "pages/product/ProductManage",
+    "pages/user/UserCheck",
+    "pages/user/UserManage",
+    "pages/merchant/MerchantCheck",
+    "pages/merchant/MerchantManage",
+    "pages/grid/GridCheck"
   ],
   "window": {
     "navigationBarTextStyle": "black",
