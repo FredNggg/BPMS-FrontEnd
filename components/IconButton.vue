@@ -38,7 +38,8 @@ view{
 }
 
 .image{
-	height: 100rpx;
-	width: 100rpx;
+	height: 70rpx;
+	width: 70rpx;
+	padding: 10rpx 0;
 }
 </style>

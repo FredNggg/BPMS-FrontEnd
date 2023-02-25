@@ -8,20 +8,6 @@ if (!Math) {
   "./pages/about/about.js";
   "./pages/about/login.js";
   "./pages/about/register.js";
-  "./pages/product/ProductReserve.js";
-  "./pages/product/ProductList.js";
-  "./pages/product/ProductHistory.js";
-  "./pages/merchant/MerchantCreate.js";
-  "./pages/merchant/MerchantView.js";
-  "./pages/grid/GridTrack.js";
-  "./pages/grid/GridManage.js";
-  "./pages/product/ProductCreate.js";
-  "./pages/product/ProductManage.js";
-  "./pages/user/UserCheck.js";
-  "./pages/user/UserManage.js";
-  "./pages/merchant/MerchantCheck.js";
-  "./pages/merchant/MerchantManage.js";
-  "./pages/grid/GridCheck.js";
 }
 const _sfc_main = {
   onLaunch: function() {

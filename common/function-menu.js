@@ -9,9 +9,9 @@ export const MARKETER_LIST = [
         title: '产品',
         functions: [
             {
-                name: '产品预约',
-                iconPath: '/static/icon/image/ProductReserve.png',
-                pagePath: '/pages/product/ProductReserve',
+                name: '产品列表',
+                iconPath: '/static/icon/image/ProductList.png',
+                pagePath: '/pages/product/ProductList',
             },
             {
                 name: '产品查看',

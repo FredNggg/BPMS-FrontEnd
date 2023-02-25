@@ -1,9 +1,16 @@
 {
+<<<<<<< HEAD
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue"
+	},
+=======
+>>>>>>> parent of 7e44193 (feat: 功能页完善；图标补充)
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index", // 首页
 			"style": {
 				"navigationBarTitleText": "首页"
+<<<<<<< HEAD
 			}
 
 		},
@@ -39,66 +46,91 @@
 			"style": {
 				"navigationBarTitleText": "产品列表"
 			}
-		},{
+		}, {
 			"path": "pages/product/ProductHistory",
 			"style": {
 				"navigationBarTitleText": "产品记录"
 			}
-		},{
+		}, {
 			"path": "pages/merchant/MerchantCreate",
 			"style": {
 				"navigationBarTitleText": "商户建档"
 			}
-		},{
+		}, {
 			"path": "pages/merchant/MerchantView",
 			"style": {
 				"navigationBarTitleText": "我的建档"
 			}
-		},{
+		}, {
 			"path": "pages/grid/GridTrack",
 			"style": {
 				"navigationBarTitleText": "我的轨迹"
 			}
-		},{
+		}, {
 			"path": "pages/grid/GridManage",
 			"style": {
 				"navigationBarTitleText": "网格分析"
 			}
-		},{
+		}, {
 			"path": "pages/product/ProductCreate",
 			"style": {
 				"navigationBarTitleText": "产品发布"
 			}
-		},{
+		}, {
 			"path": "pages/product/ProductManage",
 			"style": {
 				"navigationBarTitleText": "产品管理"
 			}
-		},{
+		}, {
 			"path": "pages/user/UserCheck",
 			"style": {
 				"navigationBarTitleText": "人员审核"
 			}
-		},{
+		}, {
 			"path": "pages/user/UserManage",
 			"style": {
 				"navigationBarTitleText": "人员管理"
 			}
-		},{
+		}, {
 			"path": "pages/merchant/MerchantCheck",
 			"style": {
 				"navigationBarTitleText": "商户审核"
 			}
-		},{
+		}, {
 			"path": "pages/merchant/MerchantManage",
 			"style": {
 				"navigationBarTitleText": "商户管理"
 			}
-		},{
+		}, {
 			"path": "pages/grid/GridCheck",
 			"style": {
 				"navigationBarTitleText": "网格审核"
 			}
+=======
+			}
+			
+		},
+		{
+			"path": "pages/function/function", // 功能
+			"style": {
+				"navigationBarTitleText": "功能"
+			}
+		},
+		{
+			"path": "pages/about/about", // 我的
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#67d3fa",
+				"backgroundColor": "#67d3fa",
+				"disableScroll": true
+			}
+		},
+		{
+			"path": "pages/about/login" 
+		},
+		{
+			"path": "pages/about/register" 
+>>>>>>> parent of 7e44193 (feat: 功能页完善；图标补充)
 		}
 	],
 	"globalStyle": {
@@ -107,6 +139,7 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
+<<<<<<< HEAD
 	"uniIdRouter": {},
 	"tabBar": {
 		"color": "#7A7E83",
@@ -129,5 +162,29 @@
 				"text": "我的"
 			}
 		]
+=======
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#F8F8F8",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/icon/image/home.png",
+				// "selectedIconPath": "static/componentHL.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/function/function",
+				"iconPath": "static/icon/image/function.png",
+				"text": "功能"
+			}, {
+				"pagePath": "pages/about/about",
+				"iconPath": "static/icon/image/my.png",
+				"text": "我的"
+			} 
+		]
+>>>>>>> parent of 7e44193 (feat: 功能页完善；图标补充)
 	}
 }
