@@ -9,9 +9,9 @@ const _sfc_main = {
     return {
       roleId: common_vendor.index.getStorageSync("roleId"),
       id: 5,
-      name: "\u96F7\u5C0F\u683C",
+      name: "雷小格",
       phone: "13684955709",
-      institution: "\u62DB\u5546\u94F6\u884C\u5357\u4EAC\u9F13\u697C\u5206\u884C"
+      institution: "招商银行南京鼓楼分行"
     };
   },
   methods: {

@@ -9,7 +9,7 @@ const _sfc_main = {
     login(data) {
       this.$store.commit("setRoleId", data);
       common_vendor.index.showToast({
-        title: `\u767B\u5F55\u6210\u529F\uFF01`
+        title: `登录成功！`
       });
       common_vendor.index.reLaunch({
         url: "/pages/index/index"

@@ -1,5 +1,6 @@
 import App from './App'
 import store from './store'
+import uviewPlus from '@/uni_modules/uview-plus'
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.prototype.$store = store
@@ -18,6 +19,7 @@ import {
 } from 'vue'
 export function createApp() {
 	const app = createSSRApp(App)
+	app.use(uviewPlus)
 	app.use(store)
 	return {
 		app,
