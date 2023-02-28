@@ -49,5 +49,19 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "页面展示效果"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseAddress",
+    "chooseLocation",
+    "choosePoi",
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "startLocationUpdate"
+    ],
   "usingComponents": {}
 }
