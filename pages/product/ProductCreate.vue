@@ -27,8 +27,10 @@
 </template>
 
 <script>
-	import {http} from '@/utils/request.js'
-	
+	import {
+		createProduct
+	} from '@/api/product.js';
+import dayjs from 'dayjs';
 	export default {
 		data() {
 			return {
@@ -85,21 +87,33 @@
 				this.filterShow = false;
 			},
 			submit() {
+				
 				this.$refs.createForm.validate().then(
 					res => {
+						this.product = this.model.product;
+						const dateText = new dayjs(new Date()).format("YYYY-MM-DD hh:mm:ss");
+						createProduct({
+							name: this.product.name,
+							type: this.product.typeNum,
+							description: this.product.description,
+							date: dateText,
+							adminId: 6,
+						}).then(res => {
+							console.log(res)
+						})
 						uni.showToast({
 							title: '提交成功',
 						})
 					}).catch(
-					err =>{
+					err => {
 						uni.showToast({
-							title:'资料不完整',
+							title: '资料不完整',
 							icon: "error",
 						})
 					}
-					)
+				)
 			},
-			reset(){
+			reset() {
 				this.$refs.createForm.resetFields();
 			}
 		},
