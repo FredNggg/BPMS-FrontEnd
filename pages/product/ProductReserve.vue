@@ -11,7 +11,7 @@
 
 			</u-form-item>
 			<u-form-item label="客户身份证号" prop="product.customerId" borderBottom ref="customoerId">
-				<u--input v-model="model.product.customerId" placeholder="请输入客户18位身份证号"></u--input>
+				<u--input v-model="model.product.customerId" type="idcard" placeholder="请输入客户18位身份证号"></u--input>
 			</u-form-item>
 			<u-form-item label="客户手机号" prop="product.contact" borderBottom ref="contact">
 				<u--input value="number" v-model="model.product.contact" placeholder="请输入客户手机号"></u--input>
