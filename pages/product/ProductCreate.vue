@@ -45,7 +45,7 @@ import dayjs from 'dayjs';
 					product: {
 						name: "",
 						typeText: '',
-						typeNum: null,
+						typeNum: -1,
 						date: "",
 						adminId: 1,
 						description: ""

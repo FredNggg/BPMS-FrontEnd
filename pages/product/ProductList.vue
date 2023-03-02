@@ -5,7 +5,7 @@
 			</u-picker>
 			<u-button @tap="filterShow = true">{{filterText}}</u-button>
 		</u-sticky>
-		<u-list>
+		<u-list @scrolltolower="scrolltolower">
 			<u-list-item v-for="(item, index) in products">
 				<view class="product-item">
 					<text class="product-name">{{item.name}}</text>
@@ -17,8 +17,8 @@
 						<u-tag :color="typeColor[item.type]" :border-color="typeColor[item.type]"
 							:text="type[item.type]" plain size="mini"></u-tag>
 						<u-icon style="margin-left: 8px;" name="clock" :label="item.date.split(' ')[0]"></u-icon>
-						<u-icon label="预约" @tap="reserve(item.id)"
-						style="margin-left: auto;"  label-pos="left" name="arrow-right"></u-icon>
+						<u-icon label="预约" @tap="reserve(item.id)" style="margin-left: auto;" label-pos="left"
+							name="arrow-right"></u-icon>
 					</view>
 				</view>
 			</u-list-item>
@@ -27,6 +27,11 @@
 </template>
 
 <script>
+	import {
+		getAllProducts,
+		getProductsByType
+	} from '@/api/product.js';
+
 	export default {
 
 		data() {
@@ -36,6 +41,8 @@
 				filterColumns: [
 					['借贷产品', '储蓄产品', '理财产品', '网银产品', '保险产品', '全部产品']
 				],
+				currPage: 1,
+				currType: 5, // 默认为5，即全部产品
 				type: ['借贷产品', '储蓄产品', '理财产品', '网银产品', '保险产品'],
 				typeColor: ['#EEB154', '#77C545', '#E47440', '#5E91E8', '#5A105D'],
 				products: [{
@@ -85,13 +92,84 @@
 			filterConfirm(e) {
 				this.filterShow = false;
 				this.filterText = e.value[0];
+				this.currPage = 1;
+				this.currType = e.indexs[0];
+				if (this.currType === 5) {
+					getAllProducts(this.currPage).then(
+						res => {
+							this.products = res.data.records;
+							console.log(res.data);
+						}
+					).catch(
+						err => {
+							console.log(err);
+						}
+					)
+				} else {
+					getProductsByType(this.currType, this.currPage).then(
+						res => {
+							this.products = res.data.records;
+							console.log(res.data);
+						}
+					).catch(
+						err => {
+							console.log(err);
+						}
+					)
+				}
+
 			},
 			reserve(productId) {
 				uni.navigateTo({
 					url: `/pages/product/ProductReserve?id=${productId}`,
 					animationType: 'slide-in-bottom',
 				})
+			},
+			scrolltolower() {
+
+				if (this.currType === 5) {
+					getAllProducts(this.currPage + 1).then(
+						res => {
+							console.log(this.products.length)
+							if (res.data.records.length > 0) {
+								this.products = this.products.concat(res.data.records);
+								console.log('after', res.data.records)
+								this.currPage++;
+							}
+						}
+					).catch(
+						err => {
+							console.log(err);
+						}
+					)
+				} else {
+					getProductsByType(this.currType, this.currPage + 1).then(
+						res => {
+							if (res.data.records.length > 0) {
+								this.products = this.products.concat(res.data.records);
+								console(this.product.length)
+								this.currPage++;
+							}
+						}
+					).catch(
+						err => {
+							console.log(err);
+						}
+					)
+				}
 			}
+		},
+		onReady() {
+			getAllProducts(this.currPage).then(
+				res => {
+					this.products = res.data.records;
+					console.log(res.data);
+				}
+			).catch(
+				err => {
+					console.log(err);
+				}
+			)
 		}
 	}
 </script>
