@@ -25,6 +25,23 @@ export const createProduct = function({
 	})
 };
 
+export const reserveProduct = function(
+	{marketerId, productId, customerName, cardId, customerId, contact, reserveTime, reserveLocation}
+){
+	const data = {marketerId: marketerId,
+		productId: productId,
+		customerName: customerName,
+		cardId: cardId,
+		customerId: customerId,
+		contact: contact,
+		reserveLocation: reserveLocation};
+	return request({
+		url: `${PREFIX}/reservation/creation`,
+		method: 'POST',
+		data: data,
+	})
+}
+
 export const getAllProducts = function(currPage, pageSize = 10) {
 	return request({
 		url: `${PREFIX}/all?currPage=${currPage}&pageSize=${pageSize}`,
@@ -38,3 +55,10 @@ export const getProductsByType = function(type, currPage, pageSize = 10) {
 		method: 'GET',
 	})
 }
+
+export const getReserveRecord = function(marketerId, currPage, pageSize = 10){
+	return request({
+		url: `${PREFIX}/reservation/marketer/${marketerId}?currPage=${currPage}&pageSize=${pageSize}`,
+		method: 'GET',
+	})
+} 

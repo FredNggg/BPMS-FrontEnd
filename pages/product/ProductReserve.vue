@@ -16,7 +16,10 @@
 			<u-form-item label="客户手机号" prop="product.contact" borderBottom ref="contact">
 				<u--input value="number" v-model="model.product.contact" placeholder="请输入客户手机号"></u--input>
 			</u-form-item>
-			<u-form-item label="预约地点" prop="product.reserveLocation" borderBottom ref="reserveLocation">
+			<u-form-item label="客户银行卡号" prop="product.cardId" borderBottom ref="cardId">
+				<u--input value="number" v-model="model.product.cardId" placeholder="请输入客户银行卡号"></u--input>
+			</u-form-item>
+			<u-form-item label="预约地点" prop="product.reserveLocation" borderBottom>
 				<u--input style="width: 60%;" v-model="model.product.reserveLocation" suffixIcon="map-fill"
 					suffixIconStyle="color: #909399" placeholder="请定位" disabled></u--input>
 				<template #right>
@@ -24,7 +27,7 @@
 				</template>
 			</u-form-item>
 		</u--form>
-		<u-button type="primary">提交</u-button>
+		<u-button type="primary" @tap="submit">提交</u-button>
 	</view>
 </template>
 
@@ -32,8 +35,12 @@
 	import {
 		getAddress,
 		qqmapsdk
-	} from '../../utils/location.js'
-
+	} from '../../utils/location.js';
+	import {
+		reserveProduct
+	} from '@/api/product.js';
+	import dayjs from 'dayjs';
+	
 	export default {
 		data() {
 			return {
@@ -41,6 +48,7 @@
 					marketerId: 1,
 					productId: 130,
 					name: '中欧医疗混合基金A',
+					cardId: '',
 					customerName: '',
 					customerId: '423232399345666644', // 身份证号
 					contact: '13588842522',
@@ -52,6 +60,7 @@
 						marketerId: 1,
 						productId: 130,
 						customerName: '',
+						cardId: '',
 						customerId: '', // 身份证号
 						contact: '',
 						reserveLocation: '',
@@ -68,6 +77,12 @@
 						type: 'string',
 						required: true,
 						message: '请填写身份证号',
+						trigger: ['blur', 'change'],
+					},
+					'product.cardId': {
+						type: 'string',
+						required: true,
+						message: '请填写银行卡号',
 						trigger: ['blur', 'change'],
 					},
 					'product.contact': [{
@@ -110,16 +125,40 @@
 						})
 					},
 					complete: (res) => {
-						// getAddress(this.location).then(res => {
-						// 	console.log(res.result)
-						// 	this.product.reserveLocation = res.result.address;
-						// 	this.model.product.reserveLocation = res.result.address;
-						// })
-
-
+						
 					}
 				})
 
+			},
+			submit() {
+				this.$refs.reserveForm.validate().then(
+					res => {
+						this.product = this.model.product;
+						const dateText = new dayjs(new Date()).format("YYYY-MM-DD hh:mm:ss");
+						reserveProduct({
+							marketerId: this.product.marketerId,
+							productId: this.product.productId,
+							customerName: this.product.customerName,
+							cardId: this.product.cardId,
+							customerId: this.product.customerId,
+							contact: this.product.contact,
+							reserveLocation: this.product.reserveLocation
+						}).then(res => {
+							console.log(res)
+						})
+						uni.showToast({
+							title: '预约成功',
+						})
+					}).catch(
+					err => {
+						console.log(err)
+						// uni.showToast({
+						// 	title: '资料不完整',
+						// 	icon: "error",
+						// })
+					}
+
+				)
 			}
 		},
 		onLoad() {
@@ -133,12 +172,13 @@
 </script>
 
 <style lang="scss">
-	.reserve-form{
+	.reserve-form {
 		margin: 10rpx 20rpx;
 		padding: 40rpx 20rpx;
 		border-radius: 20rpx;
 		background-color: #ffffff;
-		.product{
+
+		.product {
 			border-radius: 20rpx;
 			border: solid 1rpx #c8c7cc;
 			padding: 20rpx 20rpx;

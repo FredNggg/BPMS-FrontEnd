@@ -23,6 +23,10 @@
 </template>
 
 <script>
+	import {
+		getReserveRecord
+	} from '@/api/product.js'
+
 	export default {
 		data() {
 			return {
@@ -60,11 +64,25 @@
 						"reserveLocation": "[32.132635, 118.957374]"
 					}
 				],
-				
+				marketerId: 1,
+				currPage: 1,
 			}
 		},
 		methods: {
-			
+
+		},
+		onReady() {
+			getReserveRecord(this.marketerId, this.currPage).then(res => {
+				this.records = res.data.records;
+			})
+		},
+		onReachBottom() {
+			getReserveRecord(this.marketerId, this.currPage + 1).then(res => {
+				if(res.data.records.length > 0){
+					this.records = this.records.concat(res.data.records);
+					this.currPage++;
+				}
+			})
 		}
 	}
 </script>
