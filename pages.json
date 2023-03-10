@@ -26,10 +26,16 @@
 			}
 		},
 		{
-			"path": "pages/about/login"
+			"path": "pages/about/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
 		},
 		{
-			"path": "pages/about/register"
+			"path": "pages/about/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
 		},
 		{
 			"path": "pages/product/ProductReserve", // 功能

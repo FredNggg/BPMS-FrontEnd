@@ -30,6 +30,7 @@
 	import {
 		createProduct
 	} from '@/api/product.js';
+	
 import dayjs from 'dayjs';
 	export default {
 		data() {
