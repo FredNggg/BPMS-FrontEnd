@@ -8,6 +8,16 @@ const _sfc_main = {
   methods: {
     login(data) {
       this.$store.commit("setRoleId", data);
+      common_vendor.index.login({
+        provider: "weixin",
+        //使用微信登录
+        success: function(loginRes) {
+          console.log("sucess: ", loginRes);
+        },
+        fail: (err) => {
+          reject(err);
+        }
+      });
       common_vendor.index.showToast({
         title: `登录成功！`
       });

@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "注册",
+  "usingComponents": {
+    "u--form": "../../uni_modules/uview-plus/components/u--form/u--form"
+  }
 }

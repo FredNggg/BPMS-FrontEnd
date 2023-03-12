@@ -1,14 +1,12 @@
 <template>
 	<view>
-		<grid-base></grid-base>
+		666
 	</view>
 </template>
 
 <script>
-	import GridBase from '@/pages/grid/GridBase.vue'
-	
 	export default {
-		components: {GridBase},
+		name: 'GridBase',
 		data() {
 			return {
 				

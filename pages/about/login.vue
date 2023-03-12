@@ -22,6 +22,15 @@
 		methods: {
 			login(data) {
 				this.$store.commit('setRoleId', data);
+				uni.login({
+					provider: 'weixin', //使用微信登录
+					success: function(loginRes) {
+						console.log('sucess: ', loginRes);
+					},
+					fail: err => {
+						reject(err)
+					}
+				});
 				uni.showToast({
 					title: `登录成功！`
 				})

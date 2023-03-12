@@ -1,1 +1,1 @@
- 注册 
+<u--form wx:if="{{b}}" class="r" u-r="form1" u-i="2c8548e4-0" bind:__l="__l" u-p="{{b}}"></u--form>

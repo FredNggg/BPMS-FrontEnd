@@ -3,12 +3,14 @@
 	<view v-if="checkLoggedIn()">
 		<unlogin></unlogin>
 	</view>
+	
 	<view class="info" v-else> 
 	
 			<view class="abstract">
 				<view v-if="roleId===0">营销人员端</view>
 				<view v-if="roleId===1">管理员端</view>
 				尊敬的***，您好！
+				登录结果
 			</view>
 			<view class="others">
 				<button class="quit">查看个人资料</button>
