@@ -1,11 +1,35 @@
 <template>
-	<view>
-		<view>
-			<map style="width: 100%; height: 100vh;" :longitude="currLocation.longitude"
-				:latitude="currLocation.latitude" :polygons="polygons" strokeWidth="20px">
-			</map>
-		</view>
+
+	<view class="map">
+
+		<map style="width: 100%;height: 100vh;" :longitude="currLocation.longitude" :latitude="currLocation.latitude"
+			:polygons="polygons" :markers="markers" @tap="tapMap">
+			
+				<view class="button-list">
+					<view v-if="adminMode === 0">
+						<button class="functions" @tap="switchAdminMode(1)"> 创建网格</button>
+						<button class="functions"> 编辑网格</button>
+						<button class="functions"> 查看网格</button>
+
+					</view>
+					<view v-if="adminMode === 1">
+						<button class="functions" @tap="refreshGridCreation"> 重置</button>
+
+						<button class="functions" @tap="switchAdminMode(0)"> 返回</button>
+						<view>已选择的点： {{createGridInfo.selectedPoint}}</view>
+					</view>
+					
+
+				</view>
+
+			<view class="position" shape="circle" @tap="switchToMyPosition">
+				<u-icon size="32" name="/static/icon/image/coordinate.png"></u-icon>
+			</view>
+		</map>
+
+
 	</view>
+
 </template>
 <!-- DRAFT(0, "草稿"),
     ENABLE(1, "启用"),
@@ -78,7 +102,15 @@
 					strokeWidth: 13,
 					strokeColor: '#FF0000',
 					fillColor: '#FF000054',
-				}]
+				}],
+				markers:[
+					
+				], // 创建网格时的标记点
+				adminMode: 0, // 0 - 未选择, 1 - 创建网格
+				createGridInfo: {
+					selectedPoint: 0,
+					
+				}
 			}
 		},
 		methods: {
@@ -95,39 +127,90 @@
 			},
 			generateGridPolygons(gridList) {
 				const polygons = [];
-				const colorList = ['#003399', '#66CCCC','#CCFF66','#FF99CC']
+				const colorList = ['#003399', '#66CCCC', '#CCFF66', '#FF99CC']
 				gridList.map(
 					(grid, index) => {
 						let polygon = {};
 						polygon.strokeWidth = 8;
 						polygon.strokeColor = colorList[index % colorList.length];
-						polygon.fillColor = polygon.strokeColor+'54';
+						polygon.fillColor = polygon.strokeColor + '54';
 						polygon.points = this.generatePointsJson(grid.point);
 						polygons.push(polygon)
 					}
 				)
 				return polygons;
+			},
+			switchToMyPosition() { // 切换到我现在的定位
+				uni.getLocation({
+					success: (res) => {
+						console.log(res)
+						// this.currLocation.latitude = res.latitude;
+						// this.currLocation.longitude = res.longitude;
+
+						this.currLocation.latitude = this.gridList[0].point[0][0];
+						this.currLocation.longitude = this.gridList[0].point[0][1];
+					},
+					fail: (err) => {
+						console.log(err)
+					}
+				})
+			},
+			switchAdminMode(adminMode) {
+				this.adminMode = adminMode;
+			},
+			refreshGridCreation(){
+			this.markers = [];	
+			},
+			tapMap(e) {
+				if(this.adminMode !== 1){
+					return;
+				}
+				this.markers.push({
+					latitude: e.detail.latitude,
+					longitude: e.detail.longitude,
+					iconPath: '/static/icon/image/coordinate.png'
+				})
+				console.log(e.detail);
+				
 			}
 		},
 		created() {
-			// uni.getLocation({
-			// 	success: (res) => {
-			// 		this.currLocation.latitude = res.latitude;
-			// 		this.currLocation.longitude = res.longitude;
-			// 	},
-			// 	fail: (err) => {
-			// 		console.log(err)
-			// 	}
-			// })
 
-			this.currLocation.latitude = this.gridList[0].point[0][0];
-			this.currLocation.longitude = this.gridList[0].point[0][1];
+			this.switchToMyPosition();
 			this.polygons = this.generateGridPolygons(this.gridList)
 			// this.polygons[0].points = this.generatePointsJson(this.gridList[0].point);
-		}
+		},
+		options: {
+			styleIsolation: 'shared'
+		},
+
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+	.button-list {
+		// position: relative;
+		width: 100%;
 
+		.functions {
+			width: 400rpx;
+		}
+
+		
+	}
+	
+	.position {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		background-color: #fff;
+		border-radius: 50%;
+		border: solid 2rpx #c8c7cc;
+		margin: 0 auto;
+		height: 80rpx;
+		width: 80rpx;
+		right: 40rpx;
+		bottom: 200rpx;
+		width: 80rpx;
+	}
 </style>

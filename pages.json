@@ -71,7 +71,7 @@
 		}, {
 			"path": "pages/grid/GridManage",
 			"style": {
-				"navigationBarTitleText": "网格分析"
+				"navigationBarTitleText": "网格管理"
 			}
 		}, {
 			"path": "pages/product/ProductCreate",
