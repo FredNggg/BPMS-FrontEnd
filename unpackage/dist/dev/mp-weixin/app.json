@@ -18,7 +18,8 @@
     "pages/user/UserManage",
     "pages/merchant/MerchantCheck",
     "pages/merchant/MerchantManage",
-    "pages/grid/GridCheck"
+    "pages/grid/GridCheck",
+    "pages/grid/GridCreate"
   ],
   "window": {
     "navigationBarTextStyle": "black",

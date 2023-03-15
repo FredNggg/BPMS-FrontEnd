@@ -108,6 +108,11 @@
 			"style": {
 				"navigationBarTitleText": "网格审核"
 			}
+		}, {
+			"path": "pages/grid/GridCreate",
+			"style": {
+				"navigationBarTitleText": "网格添加"
+			}
 		}
 	],
 	"globalStyle": {

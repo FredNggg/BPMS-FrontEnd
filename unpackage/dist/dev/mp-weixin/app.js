@@ -138,6 +138,7 @@ if (!Math) {
   "./pages/merchant/MerchantCheck.js";
   "./pages/merchant/MerchantManage.js";
   "./pages/grid/GridCheck.js";
+  "./pages/grid/GridCreate.js";
 }
 const _sfc_main = {
   onLaunch: function() {

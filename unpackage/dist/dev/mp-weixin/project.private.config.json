@@ -3,5 +3,6 @@
   "projectname": "BPMS-FrontEnd",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "2.30.2"
 }
