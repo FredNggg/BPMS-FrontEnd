@@ -13,26 +13,32 @@
 			</u-form-item>
 			<u-form-item label="所属机构" prop="institutionId" @tap="navigateToInstitutionSelection()" borderBottom
 				ref="institutionId">
-				<u--input v-model="grid.institutionName" placeholder="请选择所属机构" disabled disabledColor="#ffffff"></u--input>
+				<u--input v-model="grid.institutionName" placeholder="请选择所属机构" disabled disabledColor="#ffffff">
+				</u--input>
 				<template #right>
-					
+
 					<u-icon name="arrow-right"></u-icon>
 				</template>
 			</u-form-item>
 			<u-picker :show="filterShow" :columns="filterColumns" @confirm="filterConfirm" @cancel="filterShow = false">
 			</u-picker>
 		</u--form>
-		
+
 		<u-button type="primary" @tap="submit">创建</u-button>
-	
+
 	</view>
-	
+
 </template>
 
 <script>
+	import {
+		createGrid
+	} from '@/api/grid.js'
+	import dayjs from 'dayjs';
+
 	export default {
 		name: "GridCreateForm",
-
+		props: ['points'],
 		data() {
 			return {
 				filterShow: false,
@@ -89,6 +95,21 @@
 			submit() {
 				this.$refs.createForm.validate().then(res => {
 					uni.$u.toast('校验通过')
+					const dateText = new dayjs(new Date()).format("YYYY-MM-DD hh:mm:ss");
+					createGrid({
+						name: this.grid.name,
+						type: this.grid.type,
+						institutionId: this.grid.institutionId,
+						adminId: 0,
+						state: 1,
+						createTime: dateText,
+						point: this.points
+					}).then(
+						res => {
+							console.log(res);
+						}).catcg(err => {
+						console.log(err);
+					})
 				}).catch(errors => {
 					uni.$u.toast('请完整填写资料！')
 				})
@@ -96,12 +117,13 @@
 		},
 		mounted() {
 			this.$refs.createForm.setRules(this.rules);
+
 			uni.$on(
 				'selectedInstitution',
 				(data) => {
 					this.grid.institutionId = data.institutionId;
 					this.grid.institutionName = data.institutionName;
-					console.log('this.grid.institutionId:',this.grid.institutionId)
+					console.log('this.grid.institutionId:', this.grid.institutionId)
 				}
 			)
 		},

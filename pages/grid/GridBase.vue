@@ -29,7 +29,7 @@
 		</map>
 		<u-popup :show="createGridInfo.infoPopUpShow" :round="10" mode="center">
 			<view class="createForm">
-				<grid-create-form></grid-create-form>
+				<grid-create-form :points="generatePointsArray(markers)"></grid-create-form>
 				<u-button @tap="createGridInfo.infoPopUpShow = false">取消</u-button>
 			</view>
 		</u-popup>
@@ -146,6 +146,15 @@
 				console.log(res);
 				return res;
 			},
+			generatePointsArray(array) { // 将坐标数组[{latitude: 0, longitude: 0},]转换为[[0,0]...]格式
+				const res = []
+				for (let item of array) {
+					let cur = [];
+					cur = [item.latitude, item.longitude];
+					res.push(cur);
+				}
+				return res;
+			},
 			generateGridPolygons(gridList) {
 				const polygons = [];
 				const colorList = ['#003399', '#66CCCC', '#CCFF66', '#FF99CC']
@@ -187,14 +196,15 @@
 				this.createGridInfo.selectedPoint = 0;
 				this.createGridInfo.gridCreatePolygon[0].points = [];
 			},
-			createGrid(){
-				if(this.createGridInfo.selectedPoint < 3){
+			createGrid() {
+				if (this.createGridInfo.selectedPoint < 3) {
 					uni.showToast({
 						title: '请选择3个或更多节点以形成网格！',
 						icon: 'none',
 					})
 					return;
 				}
+				console.log(this.generatePointsArray(this.markers))
 				this.createGridInfo.infoPopUpShow = true
 			},
 			tapMap(e) {
@@ -269,8 +279,8 @@
 		bottom: 200rpx;
 		width: 80rpx;
 	}
-	
-	.createForm{
+
+	.createForm {
 		padding: 30rpx 30rpx;
 		width: 500rpx;
 	}
