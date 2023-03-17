@@ -139,6 +139,7 @@ if (!Math) {
   "./pages/merchant/MerchantManage.js";
   "./pages/grid/GridCheck.js";
   "./pages/grid/GridCreate.js";
+  "./pages/institution/InstitutionList.js";
 }
 const _sfc_main = {
   onLaunch: function() {

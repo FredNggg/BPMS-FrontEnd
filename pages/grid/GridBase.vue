@@ -14,9 +14,10 @@
 				</cover-view>
 				<cover-view v-show="adminMode === 1">
 					<button class="functions" @tap="refreshGridCreation"> 重置</button>
-					<button class="functions"> 创建</button>
+					<button class="functions" @tap="createGrid"> 创建</button>
 					<button class="functions" @tap="switchAdminMode(0)"> 返回</button>
 					<cover-view>已选择的点： {{createGridInfo.selectedPoint}}</cover-view>
+
 				</cover-view>
 
 
@@ -26,7 +27,12 @@
 			</view>
 
 		</map>
-
+		<u-popup :show="createGridInfo.infoPopUpShow" :round="10" mode="center">
+			<view class="createForm">
+				<grid-create-form></grid-create-form>
+				<u-button @tap="createGridInfo.infoPopUpShow = false">取消</u-button>
+			</view>
+		</u-popup>
 
 	</view>
 
@@ -35,9 +41,17 @@
     ENABLE(1, "启用"),
     DISABLE(2, "停用"),
     DELETE(3, "删除"), -->
+
 <script>
+	import {
+		GridCreateForm
+	} from '../../components/GridCreateForm.vue'
+
 	export default {
 		name: 'GridBase',
+		components: {
+			GridCreateForm
+		},
 		data() {
 			return {
 				currLocation: {
@@ -110,6 +124,7 @@
 				adminMode: 0, // 0 - 未选择, 1 - 创建网格
 				createGridInfo: {
 					selectedPoint: 0,
+					infoPopUpShow: false,
 					gridCreatePolygon: [{
 						points: [],
 						strokeWidth: 8,
@@ -171,6 +186,16 @@
 				this.markers = [];
 				this.createGridInfo.selectedPoint = 0;
 				this.createGridInfo.gridCreatePolygon[0].points = [];
+			},
+			createGrid(){
+				if(this.createGridInfo.selectedPoint < 3){
+					uni.showToast({
+						title: '请选择3个或更多节点以形成网格！',
+						icon: 'none',
+					})
+					return;
+				}
+				this.createGridInfo.infoPopUpShow = true
 			},
 			tapMap(e) {
 				console.log('tapmap!')
@@ -243,5 +268,10 @@
 		right: 40rpx;
 		bottom: 200rpx;
 		width: 80rpx;
+	}
+	
+	.createForm{
+		padding: 30rpx 30rpx;
+		width: 500rpx;
 	}
 </style>

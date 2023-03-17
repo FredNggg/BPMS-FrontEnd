@@ -20,6 +20,14 @@
 		options: {
 			styleIsolation: 'shared'
 		},
+		onShow(){
+			// uni.$once(
+			// 	'selectedInstitution',
+			// 	function(data) {
+			// 		console.log('监听', data)
+			// 	}
+			// )
+		}
 	}
 </script>
 

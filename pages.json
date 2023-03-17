@@ -113,6 +113,11 @@
 			"style": {
 				"navigationBarTitleText": "网格添加"
 			}
+		}, {
+			"path": "pages/institution/InstitutionList",
+			"style": {
+				"navigationBarTitleText": "机构选择"
+			}
 		}
 	],
 	"globalStyle": {
