@@ -29,7 +29,9 @@
 		</map>
 		<u-popup :show="createGridInfo.infoPopUpShow" :round="10" mode="center">
 			<view class="createForm">
-				<grid-create-form :points="generatePointsArray(markers)"></grid-create-form>
+				<grid-create-form :points="markers.map((item) => {
+					return {latitude: item.latitude, longitude: item.longitude}
+				})"></grid-create-form>
 				<u-button @tap="createGridInfo.infoPopUpShow = false">取消</u-button>
 			</view>
 		</u-popup>
@@ -47,6 +49,10 @@
 		GridCreateForm
 	} from '../../components/GridCreateForm.vue'
 
+	import {
+		getGridList
+	} from '@/api/grid.js'
+
 	export default {
 		name: 'GridBase',
 		components: {
@@ -58,6 +64,7 @@
 					latitude: 0,
 					longitude: 0,
 				},
+				showGridList: false, // 点击网格后显示网格列表
 				gridList: [{
 						"id": 4,
 						"name": "栖道",
@@ -131,6 +138,10 @@
 						strokeColor: '#d81e06',
 						fillColor: '#d81e0654',
 					}],
+				},
+				checkGridInfo: {
+					idList: [],
+					infoList: [],
 				}
 			}
 		},
@@ -164,7 +175,12 @@
 						polygon.strokeWidth = 8;
 						polygon.strokeColor = colorList[index % colorList.length];
 						polygon.fillColor = polygon.strokeColor + '54';
-						polygon.points = this.generatePointsJson(grid.point);
+						polygon.points = grid.points.map(item => {
+							return {
+								latitude: item.latitude,
+								longitude: item.longitude
+							}
+						});
 						polygons.push(polygon)
 					}
 				)
@@ -177,9 +193,12 @@
 						// console.log(res)
 						// this.currLocation.latitude = res.latitude;
 						// this.currLocation.longitude = res.longitude;
+						if (this.gridList.length > 0) {
+							console.log('gridList', this.gridList);
+							this.currLocation.latitude = this.gridList[0].points[0].latitude;
+							this.currLocation.longitude = this.gridList[0].points[0].longitude;
+						}
 
-						this.currLocation.latitude = this.gridList[0].point[0][0];
-						this.currLocation.longitude = this.gridList[0].point[0][1];
 					},
 					fail: (err) => {
 						console.log(err)
@@ -209,42 +228,113 @@
 			},
 			tapMap(e) {
 				console.log('tapmap!')
-				if (this.adminMode !== 1) {
-					return;
-				}
-				console.log(e)
-				this.markers = this.markers.concat({
-					id: this.createGridInfo.selectedPoint++,
-					latitude: e.detail.latitude,
-					longitude: e.detail.longitude,
-					height: 30,
-					width: 30,
-					iconPath: '/static/icon/image/location.png'
-				})
-				if (this.createGridInfo.selectedPoint === 2) { // 三个点及以上才能形成多边形
-					for (const item of this.markers) {
+				if (this.adminMode === 1) {
+					this.markers = this.markers.concat({
+						id: this.createGridInfo.selectedPoint++,
+						latitude: e.detail.latitude,
+						longitude: e.detail.longitude,
+						height: 30,
+						width: 30,
+						iconPath: '/static/icon/image/location.png'
+					})
+					if (this.createGridInfo.selectedPoint === 2) { // 三个点及以上才能形成多边形
+						for (const item of this.markers) {
+							this.createGridInfo.gridCreatePolygon[0].points = this.createGridInfo.gridCreatePolygon[0]
+								.points
+								.concat({
+									latitude: item.latitude,
+									longitude: item.longitude,
+								})
+						}
+					}
+					if (this.createGridInfo.selectedPoint > 2) {
 						this.createGridInfo.gridCreatePolygon[0].points = this.createGridInfo.gridCreatePolygon[0].points
 							.concat({
-								latitude: item.latitude,
-								longitude: item.longitude,
+								latitude: e.detail.latitude,
+								longitude: e.detail.longitude,
 							})
 					}
+				} else if (this.adminMode === 0) {
+					this.judgeGrid(e.detail.latitude, e.detail.longitude)
 				}
-				if (this.createGridInfo.selectedPoint > 2) {
-					this.createGridInfo.gridCreatePolygon[0].points = this.createGridInfo.gridCreatePolygon[0].points
-						.concat({
-							latitude: e.detail.latitude,
-							longitude: e.detail.longitude,
-						})
-				}
-				console.log(e.detail);
 
+
+
+			},
+			judgeGrid(latitude, longitude) { // 判断点击的经纬度是否有网格
+				this.checkGridInfo.idList = [];
+				for (let grid of this.gridList) {
+					if (this.rayCasting([latitude, longitude], grid.points.map(item => {
+							return [item.latitude, item.longitude]
+						}))) {
+						this.checkGridInfo.idList.push(grid.id);
+					} else {
+						console.log('out!');
+					}
+				}
+				if(this.checkGridInfo.idList > 0){
+					this.showGridList = true;
+				}
+			},
+			/**
+			 * p :[x,y] ,带判定的P点
+			 * poly: [[x0,y0],[x1,y1]......] 多边形的路径
+			 */
+			rayCasting(p, poly) {
+				// px，py为p点的x和y坐标
+				let px = p[0],
+					py = p[1],
+					flag = false
+
+				//这个for循环是为了遍历多边形的每一个线段
+				for (let i = 0, l = poly.length, j = l - 1; i < l; j = i, i++) {
+					let sx = poly[i][0], //线段起点x坐标
+						sy = poly[i][1], //线段起点y坐标
+						tx = poly[j][0], //线段终点x坐标
+						ty = poly[j][1] //线段终点y坐标
+
+					// 点与多边形顶点重合
+					if ((sx === px && sy === py) || (tx === px && ty === py)) {
+						return true
+					}
+
+					// 点的射线和多边形的一条边重合，并且点在边上
+					if ((sy === ty && sy === py) && ((sx > px && tx < px) || (sx < px && tx > px))) {
+						return true
+					}
+
+					// 判断线段两端点是否在射线两侧
+					if ((sy < py && ty >= py) || (sy >= py && ty < py)) {
+						// 求射线和线段的交点x坐标，交点y坐标当然是py
+						let x = sx + (py - sy) * (tx - sx) / (ty - sy)
+
+						// 点在多边形的边上
+						if (x === px) {
+							return true
+						}
+
+						// x大于px来保证射线是朝右的，往一个方向射，假如射线穿过多边形的边界，flag取反一下
+						if (x > px) {
+							flag = !flag
+						}
+					}
+				}
+
+				// 射线穿过多边形边界的次数为奇数时点在多边形内
+				return flag ? true : false
 			}
+
 		},
 		created() {
 			console.log('created');
-			this.switchToMyPosition();
-			this.polygons = this.generateGridPolygons(this.gridList)
+
+			getGridList().then(res => {
+				console.log(res.data)
+				this.gridList = res.data;
+				this.polygons = this.generateGridPolygons(this.gridList);
+				this.switchToMyPosition();
+				console.log(this.polygons)
+			})
 			// this.polygons[0].points = this.generatePointsJson(this.gridList[0].point);
 		},
 		options: {

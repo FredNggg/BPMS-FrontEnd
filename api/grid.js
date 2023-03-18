@@ -11,7 +11,7 @@ export const createGrid = function({
 	createTime,
 	institutionId,
 	adminId,
-	point
+	points
 }) {
 	const data = {
 		name: name,
@@ -20,7 +20,7 @@ export const createGrid = function({
 		createTime: createTime,
 		institutionId: institutionId,
 		adminId: adminId,
-		point: point,
+		points: points,
 	};
 	return request({
 		url: `${PREFIX}/creation`,
@@ -28,3 +28,10 @@ export const createGrid = function({
 		data: data,
 	})
 };
+
+export const getGridList = function(){
+	return request({
+		url: `${PREFIX}/list`,
+		method: 'GET',
+	})
+}

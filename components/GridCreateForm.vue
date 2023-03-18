@@ -103,11 +103,15 @@
 						adminId: 0,
 						state: 1,
 						createTime: dateText,
-						point: this.points
+						points: this.points
 					}).then(
 						res => {
 							console.log(res);
-						}).catcg(err => {
+							uni.$u.toast('创建成功！')
+							uni.redirectTo({
+								url: '/pages/grid/GridManage'
+							})
+						}).catch(err => {
 						console.log(err);
 					})
 				}).catch(errors => {
