@@ -35,6 +35,12 @@
 				<u-button @tap="createGridInfo.infoPopUpShow = false">取消</u-button>
 			</view>
 		</u-popup>
+		<u-popup :show="checkGridInfo.showGridList" :round="10" mode="bottom">
+			<view class="grid-list">
+				<grid-list :list="checkGridInfo.infoList"></grid-list>
+				<u-button @tap="checkGridInfo.showGridList = false">取消</u-button>
+			</view>
+		</u-popup>
 
 	</view>
 
@@ -47,7 +53,11 @@
 <script>
 	import {
 		GridCreateForm
-	} from '../../components/GridCreateForm.vue'
+	} from '@/components/GridCreateForm.vue'
+
+	import {
+		GridList
+	} from '@/components/GridList.vue'
 
 	import {
 		getGridList
@@ -56,7 +66,8 @@
 	export default {
 		name: 'GridBase',
 		components: {
-			GridCreateForm
+			GridCreateForm,
+			GridList
 		},
 		data() {
 			return {
@@ -64,7 +75,7 @@
 					latitude: 0,
 					longitude: 0,
 				},
-				showGridList: false, // 点击网格后显示网格列表
+
 				gridList: [{
 						"id": 4,
 						"name": "栖道",
@@ -140,7 +151,7 @@
 					}],
 				},
 				checkGridInfo: {
-					idList: [],
+					showGridList: false, // 点击网格后显示网格列表
 					infoList: [],
 				}
 			}
@@ -262,18 +273,19 @@
 
 			},
 			judgeGrid(latitude, longitude) { // 判断点击的经纬度是否有网格
-				this.checkGridInfo.idList = [];
+				this.checkGridInfo.infoList = [];
 				for (let grid of this.gridList) {
 					if (this.rayCasting([latitude, longitude], grid.points.map(item => {
 							return [item.latitude, item.longitude]
 						}))) {
-						this.checkGridInfo.idList.push(grid.id);
+						this.checkGridInfo.infoList.push(grid);
 					} else {
 						console.log('out!');
 					}
 				}
-				if(this.checkGridInfo.idList > 0){
-					this.showGridList = true;
+				if (this.checkGridInfo.infoList.length > 0) {
+					this.checkGridInfo.showGridList = true;
+					console.log(this.checkGridInfo)
 				}
 			},
 			/**
@@ -373,5 +385,9 @@
 	.createForm {
 		padding: 30rpx 30rpx;
 		width: 500rpx;
+	}
+	
+	.grid-list{
+		
 	}
 </style>
