@@ -59,6 +59,11 @@
 				"navigationBarTitleText": "商户建档"
 			}
 		}, {
+			"path": "pages/merchant/MerchantDetail",
+			"style": {
+				"navigationBarTitleText": "建档详情"
+			}
+		},{
 			"path": "pages/merchant/MerchantView",
 			"style": {
 				"navigationBarTitleText": "我的建档"

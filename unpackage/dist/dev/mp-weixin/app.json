@@ -9,6 +9,7 @@
     "pages/product/ProductList",
     "pages/product/ProductHistory",
     "pages/merchant/MerchantCreate",
+    "pages/merchant/MerchantDetail",
     "pages/merchant/MerchantView",
     "pages/grid/GridTrack",
     "pages/grid/GridManage",

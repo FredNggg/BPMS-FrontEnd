@@ -128,6 +128,7 @@ if (!Math) {
   "./pages/product/ProductList.js";
   "./pages/product/ProductHistory.js";
   "./pages/merchant/MerchantCreate.js";
+  "./pages/merchant/MerchantDetail.js";
   "./pages/merchant/MerchantView.js";
   "./pages/grid/GridTrack.js";
   "./pages/grid/GridManage.js";

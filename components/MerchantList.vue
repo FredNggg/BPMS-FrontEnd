@@ -5,32 +5,45 @@
 	<view>
 		商户列表
 		<u-list>
-			<u-list-item v-for="(item, index) in records" class="merchant">
-				<u--image :src="item.pictureList[0].url" width="100rpx" height="100rpx" radius="20rpx"></u--image>
-				<view class="text">
-					<view class="title">{{item.abbreviation}}</view>
-					<view class="info">
-						<u-icon name="level" color="#999" label-color="#999" label-size="24rpx" :label="item.fullName"></u-icon>
-					</view>
-					<view class="info">
-						<u-icon name="map" color="#999" label-color="#999" label-size="24rpx" :label="item.location"></u-icon>
-					</view>
-					<view class="info">
-						<u-icon name="phone" color="#999" label-color="#999" label-size="24rpx" :label="item.phoneNumber"></u-icon>
+			<u-list-item v-for="(item, index) in records">
+				<view class="merchant" @tap="toDetail(item.recordId)">
+					<u--image :src="item.pictureList[0].url" width="100rpx" height="100rpx" radius="20rpx"></u--image>
+					<view class="text">
+						<view class="title">{{item.abbreviation}}</view>
+						<view class="info">
+							<u-icon name="level" color="#999" label-color="#999" label-size="24rpx"
+								:label="item.fullName">
+							</u-icon>
+						</view>
+						<view class="info">
+							<u-icon name="map" color="#999" label-color="#999" label-size="24rpx"
+								:label="item.location">
+							</u-icon>
+						</view>
+						<view class="info">
+							<u-icon name="phone" color="#999" label-color="#999" label-size="24rpx"
+								:label="item.phoneNumber"></u-icon>
+						</view>
 					</view>
 				</view>
-				
-				
+
+
+
 			</u-list-item>
 		</u-list>
 	</view>
 </template>
 
 <script>
+	import {
+		getMerchantListByMarketer
+	} from '@/api/merchant.js'
+
 	export default {
 		name: "MerchantList",
 		data() {
 			return {
+				currPage: 1,
 				records: [{
 						"recordId": 65,
 						"fullName": "华为电子通信有限公司(南京)鼓楼营业部",
@@ -62,37 +75,7 @@
 						"marketerId": 12,
 						"marketerName": "亲称群温色识"
 					},
-					{
-						"recordId": 47,
-						"fullName": "声律头酸但圆",
-						"abbreviation": "Lorem officia reprehenderit ut",
-						"location": "reprehenderit ex",
-						"district": "德清县",
-						"phoneNumber": "48",
-						"receiptStatus": 78,
-						"principalInfo": "cupidatat pariatur adipisicing commodo sed",
-						"recordState": 39,
-						"pictureList": [{
-								"type": 55,
-								"url": "https://cdn.uviewui.com/uview/album/1.jpg"
-							},
-							{
-								"type": 96,
-								"url": "http://tjl.hk/tupmw"
-							},
-							{
-								"type": 96,
-								"url": "http://igxn.su/uzgxrd"
-							}
-						],
-						"coordinate": {
-							"latitude": 73,
-							"longitude": 97
-						},
-						"createTime": "1980-02-25 23:19:32",
-						"marketerId": 43,
-						"marketerName": "青例类说"
-					},
+
 					{
 						"recordId": 46,
 						"fullName": "更收有取达八",
@@ -152,29 +135,46 @@
 					}
 				],
 			};
+		},
+		methods: {
+			toDetail(id) {
+				uni.navigateTo({
+					url: '/pages/merchant/MerchantDetail'
+				})
+			}
+		},
+		created() {
+			getMerchantListByMarketer(1, 1, 5, 0).then(
+				res => {
+					this.records = res.data.records;
+				})
 		}
+
 	}
 </script>
 
 <style lang="scss">
-	.merchant{
+	.merchant {
 		display: flex;
 		flex-direction: row;
+		width: 100%;
 		background-color: #ffffff;
 		margin: 10rpx 20rpx;
-		border-radius: 20rpx;
-		padding: 20rpx 20rpx;
+		// border-radius: 20rpx;
+		padding: 10rpx 20rpx;
 		align-items: center;
-		.text{
-			margin-left: 10rpx;
-		
-			.title{
+
+		.text {
+			margin-left: 20rpx;
+
+			.title {
 				font-weight: bolder;
 				font-size: 32rpx;
 			}
-			.info{
+
+			.info {
 				font-size: 24rpx;
-					margin-bottom: 5rpx;
+				margin-bottom: 5rpx;
 				color: $uni-text-color-grey;
 			}
 		}
