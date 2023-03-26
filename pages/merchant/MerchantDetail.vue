@@ -1,41 +1,45 @@
 <template>
 	<view>
-		<u--form labelPosition="left" labelWidth="160rpx">
-			<u-form-item label="商户简称">
-				{{merchant.abbreviation}}
-			</u-form-item>
-			<u-form-item label="商户全名">
-				{{merchant.fullName}}
-			</u-form-item>
-			<u-form-item label="商户地址">
-				{{merchant.location}}
-			</u-form-item>
-			<u-form-item label="道路/商圈">
-				{{merchant.district}}
-			</u-form-item>
-			<u-form-item label="联系方式">
-				{{merchant.phoneNumber}}
-			</u-form-item>
-			<u-form-item label="实际负责人信息">
-				{{merchant.principalInfo}}
-			</u-form-item>
-			<u-form-item label="照片">
-				<u-album :urls="merchant.pictureList" keyName="url"></u-album>
-			</u-form-item>
-		</u--form>
+		<view class="form">
+			<u--form labelPosition="left" labelWidth="160rpx" labelStyle="border-left: solid 10rpx #48BFFF;padding-left: 10rpx;">
+				<u-form-item label="商户简称">
+					{{merchant.abbreviation}}
+				</u-form-item>
+				<u-form-item label="商户全名">
+					{{merchant.fullName}}
+				</u-form-item>
+				<u-form-item label="商户地址">
+					{{merchant.location}}
+				</u-form-item>
+				<u-form-item label="道路/商圈">
+					{{merchant.district}}
+				</u-form-item>
+				<u-form-item label="联系方式">
+					{{merchant.phoneNumber}}
+				</u-form-item>
+				<u-form-item label="实际负责人信息">
+					{{merchant.principalInfo}}
+				</u-form-item>
+				<u-form-item label="照片">
+					<u-album :urls="merchant.pictureList" keyName="url"></u-album>
+				</u-form-item>
+			</u--form>
+		</view>
 		<u-divider></u-divider>
 		<view class="title">建档信息</view>
-		<u--form labelPosition="left" labelWidth="160rpx">
-			<u-form-item label="建档时间">
-				{{merchant.createTime}}
-			</u-form-item>
-			<u-form-item label="建档编号">
-				{{merchant.marketerId}}
-			</u-form-item>
-			<u-form-item label="建档姓名">
-				{{merchant.marketerName}}
-			</u-form-item>
-		</u--form>
+		<view class="form">
+			<u--form labelPosition="left" labelWidth="160rpx" labelStyle="border-left: solid 10rpx #FF689A;padding-left: 10rpx;">
+				<u-form-item label="建档时间">
+					{{merchant.createTime}}
+				</u-form-item>
+				<u-form-item label="建档编号">
+					{{merchant.marketerId}}
+				</u-form-item>
+				<u-form-item label="建档姓名">
+					{{merchant.marketerName}}
+				</u-form-item>
+			</u--form>
+		</view>
 	</view>
 </template>
 
@@ -85,9 +89,9 @@
 			}
 		},
 		methods: {
-			generatePictureUrlArray(list){ // 把 pictureList 中的图片url提取到array中
+			generatePictureUrlArray(list) { // 把 pictureList 中的图片url提取到array中
 				const res = [];
-				for(let item in list){
+				for (let item in list) {
 					res.push(item.url);
 				}
 				return res;
@@ -97,8 +101,11 @@
 </script>
 
 <style>
-	.title{
+	.title {
 		text-align: center;
 	}
 	
+	.form{
+		padding: 0rpx 20rpx;
+	}
 </style>

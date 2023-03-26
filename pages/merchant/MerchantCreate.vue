@@ -30,6 +30,31 @@
 				<u--input style="width: 60%;" v-model="recordInfo.district" suffixIcon="map-fill"
 					suffixIconStyle="color: #909399" placeholder="请先定位, 系统自动识别" disabled></u--input>
 			</u-form-item>
+			<u-form-item label="商户照片" prop="fullName" borderBottom ref="name">
+				<view class="pictures">
+					<view class="pictureItem">
+						<u-upload :file-list="fileList[0]" :max-count="1" @afterRead="afterRead($event, 0)"></u-upload>
+						<view>1. 营业执照</view>
+					</view>
+					<view class="pictureItem">
+						<u-upload :file-list="fileList[1]" :max-count="1" @afterRead="afterRead($event, 1)"></u-upload>
+						<view>2. 身份证正面</view>
+					</view>
+					<view class="pictureItem">
+						<u-upload :file-list="fileList[2]" :max-count="1" @afterRead="afterRead($event, 2)"></u-upload>
+						<view>3. 身份证背面</view>
+					</view>
+					<view class="pictureItem">
+						<u-upload :file-list="fileList[3]" :max-count="1" @afterRead="afterRead($event, 3)"></u-upload>
+						<view>4. 商户门头</view>
+					</view>
+					<view class="pictureItem">
+						<u-upload :file-list="fileList[4]" :max-count="1" @afterRead="afterRead($event, 4)"></u-upload>
+						<view>5. 其他照片</view>
+					</view>
+				</view>
+
+			</u-form-item>
 		</u--form>
 	</view>
 </template>
@@ -38,7 +63,9 @@
 	import {
 		getAddress,
 		qqmapsdk
-	} from '../../utils/location.js';
+	} from '@/utils/location.js';
+	
+	import {OBSUpload} from '@/obs/OBSUploadFile.js'
 	export default {
 		data() {
 			return {
@@ -57,15 +84,12 @@
 					receiptStatus: 0,
 					principalInfo: "",
 					pictureList: [{
-						type: 0,
+						type: 0, //0 - 营业执照，1 - 身份证证明，2 - 身份证背面，3 - 商户门头，4 - 其他照片
 						url: "",
 					}],
 					recordState: 0
 				},
-				model: {
-
-				}
-
+				fileList: [[],[],[],[],[]],
 			}
 		},
 		methods: {
@@ -81,7 +105,8 @@
 								const result = res.result;
 								console.log(result, '详细地址信息'); //这里边就是你需要的定位数据了
 								this.recordInfo.location = result.address;
-								const districtText = `${result.address_component.province}-${result.address_component.city}-${result.address_component.district}-${result.address_reference.business_area.title}`
+								const districtText =
+									`${result.address_component.province}-${result.address_component.city}-${result.address_component.district}-${result.address_reference.business_area.title}`
 								this.recordInfo.district = districtText;
 							},
 						})
@@ -92,14 +117,32 @@
 						})
 					},
 					complete: (res) => {
-						
+
 					}
 				})
+			},
+			async afterRead(event, type) {
+				console.log(event, type)
+
+				let lists = [].concat(event.file);
+				let fileListLen = this[`fileList${event.name}`][type].length;
+
+				this[`fileList${event.name}`][type].push({
+					...event,
+					status: 'uploading',
+					message: '上传中'
+				})
+				OBSUpload(event.file.url).then(res => {console.log(res)});
+				console.log(this[`fileList${event.name}`][type])
 			}
 		}
 	}
 </script>
 
 <style>
+	.pictures {
+		display: flex;
+		flex-wrap: wrap;
 
+	}
 </style>

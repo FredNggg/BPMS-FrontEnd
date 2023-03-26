@@ -66,5 +66,8 @@
     "startLocationUpdateBackground",
     "startLocationUpdate"
   ],
+  "ignoreDevUnusedFiles": false,
+  "ignoreUploadUnusedFiles": false,
+  "es5": true,
   "usingComponents": {}
 }
