@@ -12,14 +12,14 @@ import {
 	getuuid
 } from '@/utils/uuid.js';
 
-export const OBSUpload = async function(filePath) {
+export const OBSUpload = async function(filePath, callback) {
 	if (!filePath) {
 		wx.showToast({
 			title: '文件路径不能为空',
 			icon: '请重新选择路径',
 		});
 	} else {
-		const fileName = getuuid(10, 16); //指定上传到OBS桶中的对象名    
+		const fileName = getuuid(10, 16) + '.png'; //指定上传到OBS桶中的对象名    
 
 		const OBSPolicy = { //设定policy内容
 			"expiration": "2089-12-31T12:00:00.000Z",
@@ -48,6 +48,8 @@ export const OBSUpload = async function(filePath) {
 				'policy': policyEncoded,
 				'signature': signature,
 				'key': fileName,
+				'content-type': 'image/png',
+				// 'x-obs-acl': 'public-read'
 			},
 
 			success: function(res) {
@@ -65,6 +67,8 @@ export const OBSUpload = async function(filePath) {
 						icon: '失败'
 					});
 				}
+				callback(res);
+
 			},
 			fail: function(e) {
 				console.log(e);

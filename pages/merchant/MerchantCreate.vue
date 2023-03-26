@@ -64,8 +64,14 @@
 		getAddress,
 		qqmapsdk
 	} from '@/utils/location.js';
-	
-	import {OBSUpload} from '@/obs/OBSUploadFile.js'
+
+	import {
+		OBSUpload
+	} from '@/obs/OBSUploadFile.js'
+	import {
+		config
+	} from '@/obs/Configuration.js'
+
 	export default {
 		data() {
 			return {
@@ -89,7 +95,13 @@
 					}],
 					recordState: 0
 				},
-				fileList: [[],[],[],[],[]],
+				fileList: [
+					[],
+					[],
+					[],
+					[],
+					[]
+				],
 			}
 		},
 		methods: {
@@ -121,19 +133,40 @@
 					}
 				})
 			},
-			async afterRead(event, type) {
+			afterRead(event, type) {
 				console.log(event, type)
 
 				let lists = [].concat(event.file);
 				let fileListLen = this[`fileList${event.name}`][type].length;
 
-				this[`fileList${event.name}`][type].push({
+				this.fileList[type].push({
 					...event,
 					status: 'uploading',
 					message: '上传中'
 				})
-				OBSUpload(event.file.url).then(res => {console.log(res)});
-				console.log(this[`fileList${event.name}`][type])
+				OBSUpload(event.file.url, (res) => {
+					if (res.statusCode == '204') {
+						const spliter = res.header.Location.split('/');
+						const fileName = spliter[spliter.length - 1];
+						console.log(fileName)
+						const url = config.EndPoint +'/'+ fileName;
+						console.log(url)
+						this.recordInfo.pictureList.push({
+							type: type,
+							url: url,
+						})
+						console.log('AA', this[`fileList${event.name}`][type])
+						this[`fileList${event.name}`][type][0] = Object.assign(this[`fileList${event.name}`][type][
+							0
+						], {
+							status: 'success',
+							message: '',
+							url: url
+						})
+						console.log('BB', this[`fileList${event.name}`][type])
+					}
+				});
+
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 export const config = {
   AccessKeyId: 'ZEEL0ZTUCO5NNTU7HFVH',      //AK
   SecretKey: 'tYTIgtmEKfOIfBnXbrNrBptaKyIWRpkx88xQLxir',        //SK
-  EndPoint: 'https://bpms.obs.cn-east-3.myhuaweicloud.com',         //上传文件的路径
+  EndPoint: 'http://obs.frednggg.com',         //上传文件的路径
 };
 
 
