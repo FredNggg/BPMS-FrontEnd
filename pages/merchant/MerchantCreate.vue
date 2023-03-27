@@ -33,23 +33,28 @@
 			<u-form-item label="商户照片" prop="fullName" borderBottom ref="name">
 				<view class="pictures">
 					<view class="pictureItem">
-						<u-upload :file-list="fileList[0]" :max-count="1" @afterRead="afterRead($event, 0)"></u-upload>
+						<u-upload :file-list="fileList[0]" :max-count="1" @afterRead="afterRead($event, 0)"
+							@delete="deletePic($event, 0)"></u-upload>
 						<view>1. 营业执照</view>
 					</view>
 					<view class="pictureItem">
-						<u-upload :file-list="fileList[1]" :max-count="1" @afterRead="afterRead($event, 1)"></u-upload>
+						<u-upload :file-list="fileList[1]" :max-count="1" @afterRead="afterRead($event, 1)"
+							@delete="deletePic($event, 1)"></u-upload>
 						<view>2. 身份证正面</view>
 					</view>
 					<view class="pictureItem">
-						<u-upload :file-list="fileList[2]" :max-count="1" @afterRead="afterRead($event, 2)"></u-upload>
+						<u-upload :file-list="fileList[2]" :max-count="1" @afterRead="afterRead($event, 2)"
+							@delete="deletePic($event, 2)"></u-upload>
 						<view>3. 身份证背面</view>
 					</view>
 					<view class="pictureItem">
-						<u-upload :file-list="fileList[3]" :max-count="1" @afterRead="afterRead($event, 3)"></u-upload>
+						<u-upload :file-list="fileList[3]" :max-count="1" @afterRead="afterRead($event, 3)"
+							@delete="deletePic($event, 3)"></u-upload>
 						<view>4. 商户门头</view>
 					</view>
 					<view class="pictureItem">
-						<u-upload :file-list="fileList[4]" :max-count="1" @afterRead="afterRead($event, 4)"></u-upload>
+						<u-upload :file-list="fileList[4]" :max-count="1" @afterRead="afterRead($event, 4)"
+							@delete="deletePic($event, 4)"></u-upload>
 						<view>5. 其他照片</view>
 					</view>
 				</view>
@@ -89,10 +94,9 @@
 					},
 					receiptStatus: 0,
 					principalInfo: "",
-					pictureList: [{
-						type: 0, //0 - 营业执照，1 - 身份证证明，2 - 身份证背面，3 - 商户门头，4 - 其他照片
-						url: "",
-					}],
+					pictureList: [
+						//0 - 营业执照，1 - 身份证证明，2 - 身份证背面，3 - 商户门头，4 - 其他照片
+					],
 					recordState: 0
 				},
 				fileList: [
@@ -133,6 +137,17 @@
 					}
 				})
 			},
+			deletePic(event, type) {
+				this[`fileList${event.name}`][type].splice(event.index, 1);
+				const list = this.recordInfo.pictureList;
+				for (let i = 0; i < list.length; i++) {
+					if (list[i].type == type) {
+						list.splice(i, 1);
+						break;
+					}
+				}
+				console.log(list)
+			},
 			afterRead(event, type) {
 				console.log(event, type)
 
@@ -149,21 +164,21 @@
 						const spliter = res.header.Location.split('/');
 						const fileName = spliter[spliter.length - 1];
 						console.log(fileName)
-						const url = config.EndPoint +'/'+ fileName;
+						const url = config.EndPoint + '/' + fileName;
 						console.log(url)
 						this.recordInfo.pictureList.push({
 							type: type,
 							url: url,
-						})
-						console.log('AA', this[`fileList${event.name}`][type])
+						});
+
 						this[`fileList${event.name}`][type][0] = Object.assign(this[`fileList${event.name}`][type][
 							0
 						], {
 							status: 'success',
 							message: '',
 							url: url
-						})
-						console.log('BB', this[`fileList${event.name}`][type])
+						});
+
 					}
 				});
 
