@@ -35,3 +35,10 @@ export const getGridList = function(){
 		method: 'GET',
 	})
 }
+
+export const getGridDetail = function(id){
+	return request({
+		url: `${PREFIX}/content/${id}`,
+		method: 'GET',
+	})
+}

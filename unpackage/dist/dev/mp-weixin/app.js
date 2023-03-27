@@ -141,6 +141,7 @@ if (!Math) {
   "./pages/grid/GridCheck.js";
   "./pages/grid/GridCreate.js";
   "./pages/institution/InstitutionList.js";
+  "./pages/grid/GridDetail.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -3,7 +3,7 @@
 		<view class="title">您选择了 {{list.length}} 个网格:</view>
 		<u-list height="800rpx" width="100%">
 			<u-list-item v-for="(item, index) in list">
-				<u-cell :title="item.name" :label="item.address" isLink></u-cell>
+				<u-cell @tap="toDetail(item.id)" :title="item.name" :label="item.address" isLink></u-cell>
 			</u-list-item>
 		</u-list>
 	</view>
@@ -15,7 +15,11 @@
 		props: ['list'],
 		data() {
 			return {
-
+				toDetail(id){
+					uni.navigateTo({
+						url: `/pages/grid/GridDetail?id=${id}`
+					})
+				}
 			};
 		}
 	}

@@ -21,7 +21,8 @@
     "pages/merchant/MerchantManage",
     "pages/grid/GridCheck",
     "pages/grid/GridCreate",
-    "pages/institution/InstitutionList"
+    "pages/institution/InstitutionList",
+    "pages/grid/GridDetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -10,3 +10,10 @@ export const searchInstitution = function(keyword, currPage, pageSize = 20) {
 		method: 'GET',
 	})
 }
+
+export const getInstitutionDetail = function(id){
+	return request({
+		url: `${PREFIX}/${id}`,
+		method: 'GET',
+	})
+}

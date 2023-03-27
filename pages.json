@@ -124,7 +124,16 @@
 				"navigationBarTitleText": "机构选择"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/grid/GridDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "网格详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

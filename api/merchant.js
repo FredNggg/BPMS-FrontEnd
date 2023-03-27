@@ -3,12 +3,12 @@ import operate from '@/common/operate.js';
 
 let request = (new Request()).http;
 
-const PREFIX_SINGLE = '/merchant'
-const PREFIX_PLURAL = '/merchants'
+const PREFIX = '/merchants'
+
 
 export const getMerchantListByMarketer = (marketerId, recordState, currPage, pageSize = 10) => {
 	// return request({
-	// 	url: `${PREFIX_PLURAL}/marketer/${marketerId}/recordState/${recordState}?currPage=${currPage}&pageSize=${pageSize}`,
+	// 	url: `${PREFIX}/marketer/${marketerId}/recordState/${recordState}?currPage=${currPage}&pageSize=${pageSize}`,
 	// 	method: 'GET',
 	// })
 
@@ -76,7 +76,7 @@ export const getMerchantListByMarketer = (marketerId, recordState, currPage, pag
 
 export const getMerchantDetail = (recordId) => {
 	return request({
-		url: `${PREFIX_SINGLE}/${recordId}`,
+		url: `${PREFIX}/${recordId}`,
 		method: 'GET',
 	})
 }
