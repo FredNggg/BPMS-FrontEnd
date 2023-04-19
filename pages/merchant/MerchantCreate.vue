@@ -3,7 +3,7 @@
 */
 <template>
 	<view>
-		<u--form :model="recordInfo" ref="createForm" label-position="top" label-width="200rpx">
+		<u--form :model="recordInfo" ref="createForm" label-position="top" label-width="300rpx">
 			<u-form-item label="商户名称" prop="fullName" borderBottom ref="fullName">
 				<u--input v-model="recordInfo.fullName" placeholder="请输入商户名称"></u--input>
 			</u-form-item>
@@ -14,7 +14,7 @@
 				<u--input v-model="recordInfo.phoneNumber" placeholder="请输入商户联系方式"></u--input>
 			</u-form-item>
 			<u-form-item label="商户名称" prop="fullName" borderBottom ref="name">
-				<u--input v-model="recordInfo.fullName" ></u--input>
+				<u--input v-model="recordInfo.fullName"></u--input>
 			</u-form-item>
 			<u-form-item label="实际负责人信息" prop="fullName" borderBottom ref="name">
 				<u--textarea v-model="recordInfo.principalInfo" placeholder="请输入实际负责人信息"></u--textarea>
@@ -64,7 +64,7 @@
 			<u-collapse>
 				<u-collapse-item title="营业执照相关">
 					<u-form-item label="统一社会信用代码" borderBottom>
-						<u--input v-model="recordInfo.creditCode" ></u--input>
+						<u--input v-model="recordInfo.creditCode"></u--input>
 					</u-form-item>
 					<u-form-item label="单位名称" borderBottom>
 						<u--input v-model="recordInfo.unitName"></u--input>
@@ -79,63 +79,76 @@
 						<u--input v-model="recordInfo.businessScope"></u--input>
 					</u-form-item>
 					<u-form-item label="成立日期" borderBottom>
-						<u--input v-model="recordInfo.establishmentDate" ></u--input>
+						<u--input v-model="recordInfo.establishmentDate"></u--input>
 					</u-form-item>
 					<u-form-item label="法人姓名" borderBottom>
-						<u--input v-model="recordInfo.legalPersonName" ></u--input>
+						<u--input v-model="recordInfo.legalPersonName"></u--input>
 					</u-form-item>
 					<u-form-item label="法人联系方式" borderBottom>
-						<u--input v-model="recordInfo.legalPersonContact" ></u--input>
+						<u--input v-model="recordInfo.legalPersonContact"></u--input>
 					</u-form-item>
 					<u-form-item label="注册资本" borderBottom>
-						<u--input v-model="recordInfo.registeredCapital" ></u--input>
+						<u--input v-model="recordInfo.registeredCapital"></u--input>
 					</u-form-item>
 					<u-form-item label="证件编号" borderBottom>
-						<u--input v-model="recordInfo.idNumber" ></u--input>
+						<u--input v-model="recordInfo.idNumber"></u--input>
 					</u-form-item>
 					<u-form-item label="有效期" borderBottom>
-						<u--input v-model="recordInfo.validityTime" ></u--input>
+						<u--input v-model="recordInfo.validityTime"></u--input>
 					</u-form-item>
 					<u-form-item label="核准日期" borderBottom>
-						<u--input v-model="recordInfo.approvalDate" ></u--input>
+						<u--input v-model="recordInfo.approvalDate"></u--input>
 					</u-form-item>
 					<u-form-item label="公司类型" borderBottom>
-						<u--input v-model="recordInfo.companyType" ></u--input>
+						<u--input v-model="recordInfo.companyType"></u--input>
 					</u-form-item>
 				</u-collapse-item>
 
 				<u-collapse-item title="身份证相关">
 					<u-form-item label="实际负责人姓名" borderBottom>
-						<u--input v-model="recordInfo.chargeName" ></u--input>
+						<u--input v-model="recordInfo.chargeName"></u--input>
 					</u-form-item>
 					<u-form-item label="实际负责人性别" borderBottom>
-						<u--input v-model="recordInfo.chargeGender" ></u--input>
+
+						<u-radio-group
+						    v-model="recordInfo.chargeGender"
+						  >
+						   <u-radio
+						        :customStyle="{marginBottom: '8px',marginRight: '8px'}"
+						        v-for="(item, index) in genderList"
+						        :key="index"
+						        :label="item.name"
+						        :name="item.value"
+						
+						      ></u-radio>
+						  </u-radio-group>
 					</u-form-item>
 					<u-form-item label="实际负责人出生日期" borderBottom>
-						<u--input v-model="recordInfo.chargeBirth" ></u--input>
+						<u--input v-model="recordInfo.chargeBirth"></u--input>
 					</u-form-item>
 					<u-form-item label="实际负责人民族" borderBottom>
-						<u--input v-model="recordInfo.chargeNationality" ></u--input>
+						<u--input v-model="recordInfo.chargeNationality"></u--input>
 					</u-form-item>
 					<u-form-item label="实际负责人联系方式" borderBottom>
-						<u--input v-model="recordInfo.chargeContact" ></u--input>
+						<u--input v-model="recordInfo.chargeContact"></u--input>
 					</u-form-item>
 					<u-form-item label="实际负责人住址" borderBottom>
-						<u--input v-model="recordInfo.chargeAddress" ></u--input>
+						<u--input v-model="recordInfo.chargeAddress"></u--input>
 					</u-form-item>
 					<u-form-item label="实际负责人身份证号码" borderBottom>
-						<u--input v-model="recordInfo.chargeIdNumber" ></u--input>
+						<u--input v-model="recordInfo.chargeIdNumber"></u--input>
 					</u-form-item>
 					<u-form-item label="身份证签发日期" borderBottom>
-						<u--input v-model="recordInfo.idCardIssueDate" ></u--input>
+						<u--input v-model="recordInfo.idCardIssueDate"></u--input>
 					</u-form-item>
 					<u-form-item label="身份证失效日期" borderBottom>
-						<u--input v-model="recordInfo.idCardExpiryDate" ></u--input>
+						<u--input v-model="recordInfo.idCardExpiryDate"></u--input>
 					</u-form-item>
 				</u-collapse-item>
 			</u-collapse>
 
 		</u--form>
+		<u-button type="primary">建档</u-button>
 	</view>
 </template>
 
@@ -147,15 +160,29 @@
 
 	import {
 		OBSUpload
-	} from '@/obs/OBSUploadFile.js'
+	} from '@/obs/OBSUploadFile.js';
 	import {
 		config
-	} from '@/obs/Configuration.js'
+	} from '@/obs/Configuration.js';
+	import {
+		createMerchant
+	} from '@/api/merchant.js';
+
 
 	export default {
 		data() {
 			return {
-
+				genderList: [{
+						name: '男',
+						value: 1,
+						disabled: false
+					},
+					{
+						name: '女',
+						value: 0,
+						disabled: false
+					},
+				],
 				recordInfo: {
 					recordId: 0,
 					fullName: "",
@@ -189,7 +216,7 @@
 					companyType: '', // 公司类型
 					// 以下为身份证ocr
 					chargeName: '', // 实际负责人姓名
-					chargeGender: 0, // 实际负责人性别
+					chargeGender: null, // 实际负责人性别
 					chargeBirth: '', // 实际负责人出生
 					chargeNationality: '', // 实际负责人民族
 					chargeContact: '', // 实际负责人联系方式
@@ -205,7 +232,7 @@
 					[],
 					[]
 				],
-				
+
 			}
 		},
 		methods: {
@@ -282,7 +309,15 @@
 					}
 				});
 
+			},
+			submission(){
+				createMerchant(this.recordInfo).then(
+					res => {
+						console.log(res);
+					}
+				)
 			}
+		
 		}
 	}
 </script>
