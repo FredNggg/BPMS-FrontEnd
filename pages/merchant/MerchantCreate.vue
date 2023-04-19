@@ -14,7 +14,7 @@
 				<u--input v-model="recordInfo.phoneNumber" placeholder="请输入商户联系方式"></u--input>
 			</u-form-item>
 			<u-form-item label="商户名称" prop="fullName" borderBottom ref="name">
-				<u--input v-model="recordInfo.fullName" placeholder="请输入商户名称"></u--input>
+				<u--input v-model="recordInfo.fullName" ></u--input>
 			</u-form-item>
 			<u-form-item label="实际负责人信息" prop="fullName" borderBottom ref="name">
 				<u--textarea v-model="recordInfo.principalInfo" placeholder="请输入实际负责人信息"></u--textarea>
@@ -60,6 +60,81 @@
 				</view>
 
 			</u-form-item>
+
+			<u-collapse>
+				<u-collapse-item title="营业执照相关">
+					<u-form-item label="统一社会信用代码" borderBottom>
+						<u--input v-model="recordInfo.creditCode" ></u--input>
+					</u-form-item>
+					<u-form-item label="单位名称" borderBottom>
+						<u--input v-model="recordInfo.unitName"></u--input>
+					</u-form-item>
+					<u-form-item label="地址" borderBottom>
+						<u--input v-model="recordInfo.address"></u--input>
+					</u-form-item>
+					<u-form-item label="组成形式" borderBottom>
+						<u--input v-model="recordInfo.compositionForm"></u--input>
+					</u-form-item>
+					<u-form-item label="经营范围" borderBottom>
+						<u--input v-model="recordInfo.businessScope"></u--input>
+					</u-form-item>
+					<u-form-item label="成立日期" borderBottom>
+						<u--input v-model="recordInfo.establishmentDate" ></u--input>
+					</u-form-item>
+					<u-form-item label="法人姓名" borderBottom>
+						<u--input v-model="recordInfo.legalPersonName" ></u--input>
+					</u-form-item>
+					<u-form-item label="法人联系方式" borderBottom>
+						<u--input v-model="recordInfo.legalPersonContact" ></u--input>
+					</u-form-item>
+					<u-form-item label="注册资本" borderBottom>
+						<u--input v-model="recordInfo.registeredCapital" ></u--input>
+					</u-form-item>
+					<u-form-item label="证件编号" borderBottom>
+						<u--input v-model="recordInfo.idNumber" ></u--input>
+					</u-form-item>
+					<u-form-item label="有效期" borderBottom>
+						<u--input v-model="recordInfo.validityTime" ></u--input>
+					</u-form-item>
+					<u-form-item label="核准日期" borderBottom>
+						<u--input v-model="recordInfo.approvalDate" ></u--input>
+					</u-form-item>
+					<u-form-item label="公司类型" borderBottom>
+						<u--input v-model="recordInfo.companyType" ></u--input>
+					</u-form-item>
+				</u-collapse-item>
+
+				<u-collapse-item title="身份证相关">
+					<u-form-item label="实际负责人姓名" borderBottom>
+						<u--input v-model="recordInfo.chargeName" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人性别" borderBottom>
+						<u--input v-model="recordInfo.chargeGender" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人出生日期" borderBottom>
+						<u--input v-model="recordInfo.chargeBirth" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人民族" borderBottom>
+						<u--input v-model="recordInfo.chargeNationality" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人联系方式" borderBottom>
+						<u--input v-model="recordInfo.chargeContact" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人住址" borderBottom>
+						<u--input v-model="recordInfo.chargeAddress" ></u--input>
+					</u-form-item>
+					<u-form-item label="实际负责人身份证号码" borderBottom>
+						<u--input v-model="recordInfo.chargeIdNumber" ></u--input>
+					</u-form-item>
+					<u-form-item label="身份证签发日期" borderBottom>
+						<u--input v-model="recordInfo.idCardIssueDate" ></u--input>
+					</u-form-item>
+					<u-form-item label="身份证失效日期" borderBottom>
+						<u--input v-model="recordInfo.idCardExpiryDate" ></u--input>
+					</u-form-item>
+				</u-collapse-item>
+			</u-collapse>
+
 		</u--form>
 	</view>
 </template>
@@ -97,7 +172,31 @@
 					pictureList: [
 						//0 - 营业执照，1 - 身份证证明，2 - 身份证背面，3 - 商户门头，4 - 其他照片
 					],
-					recordState: 0
+					recordState: 0,
+					// 以下为营业执照信息ocr
+					creditCode: '', //统一社会信用代码
+					unitName: '', // 单位名称
+					address: '', // 地址
+					compositionForm: '', // 组成形式
+					businessScope: '', // 经营范围
+					establishmentDate: '', // 成立日期
+					legalPersonName: '', // 法人姓名
+					legalPersonContact: '', // 法人联系方式
+					registeredCapital: '', // 注册资本
+					idNumber: '', // 证件编号
+					validityTime: '', // 有效期
+					approvalDate: '', // 核准日期
+					companyType: '', // 公司类型
+					// 以下为身份证ocr
+					chargeName: '', // 实际负责人姓名
+					chargeGender: 0, // 实际负责人性别
+					chargeBirth: '', // 实际负责人出生
+					chargeNationality: '', // 实际负责人民族
+					chargeContact: '', // 实际负责人联系方式
+					chargeAddress: '', // 实际负责人住址
+					chargeIdNumber: '', // 实际负责人身份证号码
+					idCardIssueDate: '', // 负责人身份证签发日期
+					idCardExpiryDate: '', // 负责人身份证失效日期
 				},
 				fileList: [
 					[],
@@ -106,6 +205,7 @@
 					[],
 					[]
 				],
+				
 			}
 		},
 		methods: {

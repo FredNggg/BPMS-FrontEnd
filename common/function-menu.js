@@ -92,7 +92,7 @@ export const ADMIN_LIST = [
         title: '商户',
         functions: [
             {
-                name: '商户审核',
+                name: '建档审核',
                 iconPath: '/static/icon/image/MerchantCheck.png',
                 pagePath: '/pages/merchant/MerchantCheck',
             },
