@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-require("../../api/user.js");
+const api_user = require("../../api/user.js");
 require("../../utils/request.js");
 require("../../common/operate.js");
 const _sfc_main = {
@@ -12,13 +12,50 @@ const _sfc_main = {
         institutionId: "",
         position: "营销人员",
         state: 0,
-        institutionName: ""
+        institutionName: "",
+        code: ""
       },
-      verificationCode: "",
-      tips: ""
+      tips: "",
+      rules: {
+        "name": {
+          required: true,
+          message: "请填写姓名",
+          trigger: ["blur", "change"]
+        },
+        "code": {
+          type: "string",
+          required: true,
+          len: 6,
+          message: "请填写6位验证码",
+          trigger: ["blur"]
+        },
+        "phone": [
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: ["change", "blur"]
+          },
+          {
+            // 自定义验证函数，见上说明
+            validator: (rule, value, callback) => {
+              return common_vendor.index.$u.test.mobile(value);
+            },
+            message: "手机号码不正确",
+            // 触发器可以同时用blur和change
+            trigger: ["change", "blur"]
+          }
+        ],
+        "institutionName": {
+          type: "string",
+          required: true,
+          message: "请选择所属机构",
+          trigger: ["blur", "change"]
+        }
+      }
     };
   },
   mounted() {
+    this.$refs.form1.setRules(this.rules);
     common_vendor.index.$on(
       "selectedInstitution",
       (data) => {
@@ -33,24 +70,32 @@ const _sfc_main = {
       this.tips = text;
     },
     getCode() {
+      if (!common_vendor.index.$u.test.mobile(this.userInfo.phone)) {
+        common_vendor.index.$u.toast("手机号填写不正确");
+        return;
+      }
       if (this.$refs.uCode.canGetCode) {
         common_vendor.index.showLoading({
           title: "正在获取验证码"
         });
         setTimeout(() => {
           common_vendor.index.hideLoading();
-          common_vendor.index.$u.toast("验证码已发送");
+          api_user.sendVerificationCode(this.userInfo.phone).then(
+            (res) => {
+              if (res.data) {
+                common_vendor.index.$u.toast("验证码已发送");
+              } else {
+                common_vendor.index.$u.toast("验证码发送失败");
+              }
+            }
+          ).catch((err) => {
+            common_vendor.index.$u.toast("验证码发送失败");
+          });
           this.$refs.uCode.start();
         }, 2e3);
       } else {
         common_vendor.index.$u.toast("倒计时结束后再发送");
       }
-    },
-    end() {
-      common_vendor.index.$u.toast("倒计时结束");
-    },
-    start() {
-      common_vendor.index.$u.toast("倒计时开始");
     },
     navigateToInstitutionSelection() {
       common_vendor.index.navigateTo({
@@ -58,6 +103,11 @@ const _sfc_main = {
       });
     },
     submit() {
+      this.$refs.form1.validate().then((res) => {
+        common_vendor.index.$u.toast("校验通过");
+      }).catch((errors) => {
+        common_vendor.index.$u.toast("资料填写有误，请检查！");
+      });
     }
   },
   destroyed() {
@@ -95,7 +145,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.sr("name", "2c8548e4-1,2c8548e4-0"),
     d: common_vendor.p({
       label: "姓名",
-      prop: "userInfo.name",
+      prop: "name",
       borderBottom: true
     }),
     e: common_vendor.o(($event) => $data.userInfo.phone = $event),
@@ -107,15 +157,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     g: common_vendor.sr("phone", "2c8548e4-3,2c8548e4-0"),
     h: common_vendor.p({
       label: "手机号码",
-      prop: "userInfo.phone",
+      prop: "phone",
       borderBottom: true
     }),
-    i: common_vendor.o(($event) => $data.verificationCode = $event),
+    i: common_vendor.o(($event) => $data.userInfo.code = $event),
     j: common_vendor.p({
       width: "120rpx",
       placeholder: "请填写验证码",
       border: "none",
-      modelValue: $data.verificationCode
+      modelValue: $data.userInfo.code
     }),
     k: common_vendor.o($options.getCode),
     l: common_vendor.p({
@@ -125,43 +175,43 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     m: common_vendor.sr("uToast", "2c8548e4-8,2c8548e4-5"),
     n: common_vendor.sr("uCode", "2c8548e4-9,2c8548e4-5"),
-    o: common_vendor.o($options.end),
-    p: common_vendor.o($options.start),
-    q: common_vendor.o($options.codeChange),
-    r: common_vendor.p({
+    o: common_vendor.o($options.codeChange),
+    p: common_vendor.p({
       seconds: _ctx.seconds
     }),
-    s: common_vendor.sr("phone", "2c8548e4-5,2c8548e4-0"),
-    t: common_vendor.p({
+    q: common_vendor.sr("code", "2c8548e4-5,2c8548e4-0"),
+    r: common_vendor.p({
       label: "验证码",
       borderBottom: true,
       prop: "code"
     }),
-    v: common_vendor.o(($event) => $data.userInfo.institutionName = $event),
-    w: common_vendor.p({
+    s: common_vendor.sr("institutionName", "2c8548e4-11,2c8548e4-10"),
+    t: common_vendor.o(($event) => $data.userInfo.institutionName = $event),
+    v: common_vendor.p({
+      prop: "institutionName",
       placeholder: "请选择所属机构",
       border: "none",
       modelValue: $data.userInfo.institutionName
     }),
-    x: common_vendor.p({
+    w: common_vendor.p({
       name: "arrow-right"
     }),
-    y: common_vendor.sr("institutionId", "2c8548e4-10,2c8548e4-0"),
-    z: common_vendor.o($options.navigateToInstitutionSelection),
-    A: common_vendor.p({
+    x: common_vendor.sr("institutionId", "2c8548e4-10,2c8548e4-0"),
+    y: common_vendor.o($options.navigateToInstitutionSelection),
+    z: common_vendor.p({
       label: "所属机构",
       prop: "userInfo.institutionId",
       borderBottom: true
     }),
-    B: common_vendor.sr("form1", "2c8548e4-0"),
-    C: common_vendor.p({
+    A: common_vendor.sr("form1", "2c8548e4-0"),
+    B: common_vendor.p({
       labelPosition: "left",
       labelWidth: "180rpx",
       model: $data.userInfo,
-      rules: _ctx.rules
+      rules: $data.rules
     }),
-    D: common_vendor.o($options.submit),
-    E: common_vendor.p({
+    C: common_vendor.o($options.submit),
+    D: common_vendor.p({
       type: "primary"
     })
   };
