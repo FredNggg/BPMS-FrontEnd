@@ -5,6 +5,8 @@
 	<button @tap="login(1)">
 		点击以管理员身份登录
 	</button>
+	<button type="primary" @tap="wechatLogin()">微信一键登录</button>
+	<button @tap="phoneLogin()">手机号码登录</button>
 </template>
 
 <script>
@@ -36,6 +38,14 @@
 				})
 				uni.reLaunch({
 					url: '/pages/index/index'
+				})
+			},
+			wechatLogin(){
+				
+			},
+			phoneLogin(){
+				uni.navigateTo({
+					url: '/pages/about/phone-login'
 				})
 			}
 		}

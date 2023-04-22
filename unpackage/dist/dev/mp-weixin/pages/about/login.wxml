@@ -1,1 +1,1 @@
-<button bindtap="{{a}}"> 点击以营销人员身份登录 </button><button bindtap="{{b}}"> 点击以管理员身份登录 </button>
+<button bindtap="{{a}}"> 点击以营销人员身份登录 </button><button bindtap="{{b}}"> 点击以管理员身份登录 </button><button type="primary" bindtap="{{c}}">微信一键登录</button><button bindtap="{{d}}">手机号码登录</button>

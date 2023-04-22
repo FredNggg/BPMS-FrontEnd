@@ -30,6 +30,9 @@ export default class Request {
 				};
 			}
 		}
+		if(uni.getStorageSync('token')){
+			header.Authorization = uni.getStorageSync('token');
+		}
 
 		//加载圈
 		if (!hideLoading) {
@@ -54,6 +57,9 @@ export default class Request {
 							icon: 'none'
 						});
 						return;
+					}
+					if(res.header.Authorization){
+						res.data.Authorization = res.header.Authorization;
 					}
 					// 将结果抛出
 					resolve(res.data)

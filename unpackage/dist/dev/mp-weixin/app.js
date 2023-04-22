@@ -123,6 +123,7 @@ if (!Math) {
   "./pages/function/function.js";
   "./pages/about/about.js";
   "./pages/about/login.js";
+  "./pages/about/phone-login.js";
   "./pages/about/register.js";
   "./pages/product/ProductReserve.js";
   "./pages/product/ProductList.js";

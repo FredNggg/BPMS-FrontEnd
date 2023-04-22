@@ -24,13 +24,22 @@ const _sfc_main = {
       common_vendor.index.reLaunch({
         url: "/pages/index/index"
       });
+    },
+    wechatLogin() {
+    },
+    phoneLogin() {
+      common_vendor.index.navigateTo({
+        url: "/pages/about/phone-login"
+      });
     }
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.o(($event) => $options.login(0)),
-    b: common_vendor.o(($event) => $options.login(1))
+    b: common_vendor.o(($event) => $options.login(1)),
+    c: common_vendor.o(($event) => $options.wechatLogin()),
+    d: common_vendor.o(($event) => $options.phoneLogin())
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/fred/Course/Graduation Project/BPMS-FrontEnd/pages/about/login.vue"]]);

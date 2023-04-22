@@ -32,7 +32,7 @@
 				filterColumns: [
 					['申请中', '在职', '已离职','全部人员']
 				],
-				state: ['申请中', '在职', '已离职'],
+				state: ['申请中', '在职', '已离职', '申请失败'],
 				filterText: 'aaa',
 				userList: [{
 					id: 2,

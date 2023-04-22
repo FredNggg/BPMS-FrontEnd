@@ -1,12 +1,24 @@
 <template>
 	<view class="form">
 		<u--form labelPosition="left" labelWidth="180rpx" :model="userInfo" :rules="rules" ref="form1">
-			<u-form-item label="姓名" prop="name" borderBottom ref="name">
-				<u--input v-model="userInfo.name" placeholder="请输入姓名" border="none"></u--input>
-			</u-form-item>
+
 			<u-form-item label="手机号码" prop="phone" borderBottom ref="phone">
 				<u--input v-model="userInfo.phone" placeholder="请输入11位手机号码" border="none"></u--input>
 
+			</u-form-item>
+			<u-form-item label="用户类别" prop="userRole" borderBottom ref="userRole">
+				<u-radio-group
+				    v-model="userInfo.userRole"
+				  >
+				    <u-radio
+				      :customStyle="{marginRight: '8px'}"
+				      v-for="(item, index) in roleList"
+				      :key="index"
+				      :label="item.name"
+				      :name="item.value"
+				    >
+				    </u-radio>
+				  </u-radio-group>
 			</u-form-item>
 			<u-form-item label="验证码" borderBottom prop="code" ref="code">
 				<u--input width="120rpx" v-model="userInfo.code" placeholder="请填写验证码" border="none"></u--input>
@@ -19,40 +31,37 @@
 				</template>
 
 			</u-form-item>
-			<u-form-item @tap="navigateToInstitutionSelection" label="所属机构" prop="userInfo.institutionId" borderBottom
-				ref="institutionId">
-				<u--input v-model="userInfo.institutionName" prop="institutionName" placeholder="请选择所属机构" border="none"
-					ref="institutionName"></u--input>
-				<template #right>
-					<u-icon name="arrow-right"></u-icon>
-				</template>
-			</u-form-item>
+
 		</u--form>
-		<u-button type="primary" @tap="submit">注册</u-button>
+		<u-button type="primary" @tap="login">登录</u-button>
 	</view>
-	
 </template>
 
 <script>
 	import {
 		checkVerificationCode,
 		sendVerificationCode,
-		register
+		phoneLogin
 	} from '@/api/user.js';
 
 	export default {
 		data() {
 			return {
 				userInfo: {
-					name: '',
 					phone: '',
-					institutionId: '',
-					position: '营销人员',
-					state: 0,
-					institutionName: '',
+					name: '',
 					code: '',
+					userRole: null,
 				},
-
+				roleList: [{
+					name: '管理员',
+					disabled: false,
+					value: 0,
+				}, {
+					name: '营销人员',
+					disabled: false,
+					value: 1,
+				}, ],
 				tips: '',
 				rules: {
 					'name': {
@@ -66,6 +75,11 @@
 						len: 6,
 						message: '请填写6位验证码',
 						trigger: ['blur']
+					},
+					'userRole':{
+						type: 'number',
+						required: true,
+						message: '请选择用户类别',
 					},
 					'phone': [{
 							required: true,
@@ -83,36 +97,51 @@
 							// 触发器可以同时用blur和change
 							trigger: ['change', 'blur'],
 						}
-					],
-					'institutionName': {
-						type: 'string',
-						required: true,
-						message: '请选择所属机构',
-						trigger: ['blur', 'change']
-					},
+					]
 				}
 			}
 		},
 		mounted() {
 			this.$refs.form1.setRules(this.rules);
-
-			uni.$on(
-				'selectedInstitution',
-				(data) => {
-					this.userInfo.institutionId = data.institutionId;
-					this.userInfo.institutionName = data.institutionName;
-					console.log('this.userInfo.institutionId:', this.userInfo.institutionId)
-				}
-			)
 		},
 		methods: {
 			codeChange(text) {
 				this.tips = text;
 			},
+			login() {
+				this.$refs.form1.validate().then(
+					res => {
+						phoneLogin(this.userInfo.userRole, this.userInfo.phone, this.userInfo.code).then(res => {
+							console.log(res)
+							const data = res.data
+							if (res.code == 200) {
+								uni.setStorage({
+									key: 'userInfo',
+									data: res.data.userVO
+								});
+								uni.setStorage({
+									key: 'token',
+									data: res.Authorization
+								});
+								uni.setStorage({
+									key: 'userRole',
+									data: this.userInfo.userRole
+								})
+								uni.$u.toast('登录成功');
+								uni.redirectTo({
+									url: '/pages/index/index'
+								})
+							} //验证成功
+							else {
+								uni.$u.toast(res.msg);
+							}
+						})
 
-			jumpTosuccess() {
-				uni.navigateTo({
-					url: '/pages/about/register-success'
+
+					}
+				).catch(err => {
+					uni.$u.toast(err.msg)
+
 				})
 			},
 			getCode() {
@@ -146,45 +175,6 @@
 					uni.$u.toast('倒计时结束后再发送');
 				}
 			},
-
-
-			navigateToInstitutionSelection() {
-				uni.navigateTo({
-					url: '/pages/institution/InstitutionList'
-				})
-			},
-			submit() {
-				this.$refs.form1.validate().then(res => {
-					checkVerificationCode(this.userInfo.phone, this.userInfo.code).then(res => {
-						if (res.code == 200) { // 验证成功
-							register(this.userInfo.name, this.userInfo.phone, this.userInfo.institutionId,
-								'营销人员', 0).then(
-								res => {
-									console.log(res)
-									if (res.code == 200) {
-										uni.$u.toast('注册成功！');
-										uni.navigateTo({
-											url: '/pages/about/register-success'
-										})
-									} else {
-										uni.$u.toast(res.msg);
-									}
-								})
-						} else {
-							uni.$u.toast(res.msg);
-						}
-					}).catch(err => {
-						uni.$u.toast(err.msg)
-
-					})
-				}).catch(errors => {
-					uni.$u.toast('资料填写有误，请检查！')
-
-				})
-			}
-		},
-		destroyed() {
-			uni.$off('selectedInstitution');
 		}
 	}
 </script>

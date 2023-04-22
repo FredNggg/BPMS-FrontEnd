@@ -32,6 +32,12 @@
 			}
 		},
 		{
+			"path": "pages/about/phone-login",
+			"style": {
+				"navigationBarTitleText": "手机登录"
+			}
+		},
+		{
 			"path": "pages/about/register",
 			"style": {
 				"navigationBarTitleText": "注册"

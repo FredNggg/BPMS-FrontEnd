@@ -32,3 +32,24 @@ export const checkVerificationCode = function(phone, code){
 		method: 'GET',
 	})
 }
+
+export const phoneLogin = function(userRole, phone, code){
+	return request({
+		url: `${PREFIX}/login/phone?userRole=${userRole}&phone=${phone}&code=${code}`,
+		method: 'POST',
+	})
+}
+
+export const wechatLogin = function(userRole, weChatLoginCode){
+	return request({
+		url: `${PREFIX}/login/wechat?userRole=${userRole}&weChatLoginCode=${weChatLoginCode}`,
+		method: 'POST',
+	})
+}
+
+export const wechatBind = function(userRole, phone, weChatLoginCode){
+	return request({
+		url: `${PREFIX}/bind/wechat?userRole=${userRole}&phone=${phone}&weChatLoginCode=${weChatLoginCode}`,
+		method: 'POST',
+	})
+}

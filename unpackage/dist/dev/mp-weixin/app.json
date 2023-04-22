@@ -4,6 +4,7 @@
     "pages/function/function",
     "pages/about/about",
     "pages/about/login",
+    "pages/about/phone-login",
     "pages/about/register",
     "pages/product/ProductReserve",
     "pages/product/ProductList",

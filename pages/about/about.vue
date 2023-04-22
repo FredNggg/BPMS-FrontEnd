@@ -7,8 +7,8 @@
 	<view class="info" v-else> 
 	
 			<view class="abstract">
-				<view v-if="roleId===0">营销人员端</view>
-				<view v-if="roleId===1">管理员端</view>
+				<view v-if="roleId===1">营销人员端</view>
+				<view v-if="roleId===0">管理员端</view>
 				尊敬的***，您好！
 				登录结果：
 			</view>
@@ -31,16 +31,13 @@
 		},
 		data() {
 			return {
-				roleId: uni.getStorageSync('roleId'),
-				id: 5,
-				name: '雷小格',
-				phone: '13684955709',
-				institution: '招商银行南京鼓楼分行'
+				roleId: uni.getStorageSync('userRole'),
+				userInfo: uni.getStorageInfoSync('userInfo')
 			}
 		},
 		methods: {
 			checkLoggedIn() {
-				return uni.getStorageSync('roleId').length === 0;
+				return uni.getStorageSync('userRole').length === 0;
 			},
 			logout() {
 				uni.clearStorageSync();

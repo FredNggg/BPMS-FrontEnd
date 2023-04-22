@@ -7,16 +7,13 @@ const _sfc_main = {
   },
   data() {
     return {
-      roleId: common_vendor.index.getStorageSync("roleId"),
-      id: 5,
-      name: "雷小格",
-      phone: "13684955709",
-      institution: "招商银行南京鼓楼分行"
+      roleId: common_vendor.index.getStorageSync("userRole"),
+      userInfo: common_vendor.index.getStorageInfoSync("userInfo")
     };
   },
   methods: {
     checkLoggedIn() {
-      return common_vendor.index.getStorageSync("roleId").length === 0;
+      return common_vendor.index.getStorageSync("userRole").length === 0;
     },
     logout() {
       common_vendor.index.clearStorageSync();
@@ -34,10 +31,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: $options.checkLoggedIn()
   }, $options.checkLoggedIn() ? {} : common_vendor.e({
-    b: $data.roleId === 0
-  }, $data.roleId === 0 ? {} : {}, {
-    c: $data.roleId === 1
+    b: $data.roleId === 1
   }, $data.roleId === 1 ? {} : {}, {
+    c: $data.roleId === 0
+  }, $data.roleId === 0 ? {} : {}, {
     d: common_vendor.o(($event) => $options.logout())
   }));
 }
