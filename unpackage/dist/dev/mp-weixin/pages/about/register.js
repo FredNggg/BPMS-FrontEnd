@@ -69,6 +69,11 @@ const _sfc_main = {
     codeChange(text) {
       this.tips = text;
     },
+    jumpTosuccess() {
+      common_vendor.index.navigateTo({
+        url: "/pages/about/register-success"
+      });
+    },
     getCode() {
       if (!common_vendor.index.$u.test.mobile(this.userInfo.phone)) {
         common_vendor.index.$u.toast("手机号填写不正确");
@@ -104,7 +109,33 @@ const _sfc_main = {
     },
     submit() {
       this.$refs.form1.validate().then((res) => {
-        common_vendor.index.$u.toast("校验通过");
+        api_user.checkVerificationCode(this.userInfo.phone, this.userInfo.code).then((res2) => {
+          if (res2.code == 200) {
+            api_user.register(
+              this.userInfo.name,
+              this.userInfo.phone,
+              this.userInfo.institutionId,
+              "营销人员",
+              0
+            ).then(
+              (res3) => {
+                console.log(res3);
+                if (res3.code == 200) {
+                  common_vendor.index.$u.toast("注册成功！");
+                  common_vendor.index.navigateTo({
+                    url: "/pages/about/register-success"
+                  });
+                } else {
+                  common_vendor.index.$u.toast(res3.msg);
+                }
+              }
+            );
+          } else {
+            common_vendor.index.$u.toast(res2.msg);
+          }
+        }).catch((err) => {
+          common_vendor.index.$u.toast(err.msg);
+        });
       }).catch((errors) => {
         common_vendor.index.$u.toast("资料填写有误，请检查！");
       });

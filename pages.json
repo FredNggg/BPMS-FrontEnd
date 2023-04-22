@@ -132,6 +132,14 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/about/register-success",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册成功",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"globalStyle": {

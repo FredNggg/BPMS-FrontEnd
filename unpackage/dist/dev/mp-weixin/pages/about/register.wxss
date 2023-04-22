@@ -1,4 +1,4 @@
 
 .form {
-		padding: 30rpx;
+		padding: 90rpx 30rpx;
 }

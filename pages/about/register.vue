@@ -112,6 +112,12 @@
 			codeChange(text) {
 				this.tips = text;
 			},
+
+			jumpTosuccess() {
+				uni.navigateTo({
+					url: '/pages/about/register-success'
+				})
+			},
 			getCode() {
 				if (!uni.$u.test.mobile(this.userInfo.phone)) {
 					uni.$u.toast('手机号填写不正确');
@@ -143,8 +149,8 @@
 					uni.$u.toast('倒计时结束后再发送');
 				}
 			},
-			
-			
+
+
 			navigateToInstitutionSelection() {
 				uni.navigateTo({
 					url: '/pages/institution/InstitutionList'
@@ -152,7 +158,28 @@
 			},
 			submit() {
 				this.$refs.form1.validate().then(res => {
-					uni.$u.toast('校验通过')
+					checkVerificationCode(this.userInfo.phone, this.userInfo.code).then(res => {
+						if (res.code == 200) { // 验证成功
+							register(this.userInfo.name, this.userInfo.phone, this.userInfo.institutionId,
+								'营销人员', 0).then(
+								res => {
+									console.log(res)
+									if (res.code == 200) {
+										uni.$u.toast('注册成功！');
+										uni.navigateTo({
+											url: '/pages/about/register-success'
+										})
+									} else {
+										uni.$u.toast(res.msg);
+									}
+								})
+						} else {
+							uni.$u.toast(res.msg);
+						}
+					}).catch(err => {
+						uni.$u.toast(err.msg)
+
+					})
 				}).catch(errors => {
 					uni.$u.toast('资料填写有误，请检查！')
 
@@ -167,6 +194,6 @@
 
 <style>
 	.form {
-		padding: 30rpx;
+		padding: 90rpx 30rpx;
 	}
 </style>
