@@ -1,6 +1,5 @@
 <template>
-
-	<view v-if="checkLoggedIn()">
+	<view v-if="!loggedIn">
 		<unlogin></unlogin>
 	</view>
 	
@@ -9,8 +8,9 @@
 			<view class="abstract">
 				<view v-if="roleId===1">营销人员端</view>
 				<view v-if="roleId===0">管理员端</view>
-				尊敬的***，您好！
-				登录结果：
+				
+				尊敬的{{userInfo.name}}，您好！
+				所属支行：{{userInfo}}
 			</view>
 			<view class="others">
 				<button class="quit">查看个人资料</button>
@@ -31,13 +31,16 @@
 		},
 		data() {
 			return {
-				roleId: uni.getStorageSync('userRole'),
-				userInfo: uni.getStorageInfoSync('userInfo')
+				roleId: null,
+				userInfo: {},
+				loggedIn: false,
 			}
 		},
 		methods: {
 			checkLoggedIn() {
-				return uni.getStorageSync('userRole').length === 0;
+				// console.log(Object.keys(this.userInfo))
+				// if(Object.keys(uni.getStorageSync('userInfo')).length === 0) return false;
+				return uni.getStorageSync('userInfo');
 			},
 			logout() {
 				uni.clearStorageSync();
@@ -45,6 +48,13 @@
 					url: '/pages/index/index'
 				})
 			}
+		},
+		beforeMount() {
+			
+			this.userInfo = uni.getStorageSync('userInfo');
+			this.roleId = uni.getStorageSync('userRole');
+			this.loggedIn = this.checkLoggedIn();
+			console.log(this.checkLoggedIn())
 		}
 	}
 </script>

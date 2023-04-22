@@ -115,22 +115,26 @@
 							console.log(res)
 							const data = res.data
 							if (res.code == 200) {
-								uni.setStorage({
-									key: 'userInfo',
-									data: res.data.userVO
-								});
-								uni.setStorage({
-									key: 'token',
-									data: res.Authorization
-								});
-								uni.setStorage({
-									key: 'userRole',
-									data: this.userInfo.userRole
-								})
+								uni.setStorageSync(
+									 'userInfo',
+									res.data.userVO
+								);
+								uni.setStorageSync(
+									'token',
+									res.Authorization
+								);
+								uni.setStorageSync(
+									'userRole',
+									this.userInfo.userRole
+								);
+								uni.setStorageSync(
+									'instituition',
+									res.data.institutionVO
+								);
 								uni.$u.toast('登录成功');
-								uni.redirectTo({
+								uni.reLaunch({
 									url: '/pages/index/index'
-								})
+								});
 							} //验证成功
 							else {
 								uni.$u.toast(res.msg);

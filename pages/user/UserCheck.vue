@@ -10,8 +10,8 @@
 					<u-form-item label="注册时间">{{item.register_time}}</u-form-item>
 					<u-form-item label="状态">{{item.state}}</u-form-item>
 					<view class="button">
-						<view class="item"><u-button type="success">通过</u-button></view>
-						<view class="item"><u-button type="error">驳回</u-button></view>
+						<view class="item"><u-button @tap="setState(item.id, 1)" type="success">通过</u-button></view>
+						<view class="item"><u-button @tap="setState(item.id, 3)" type="error">驳回</u-button></view>
 					</view>
 
 				</u--form>
@@ -63,13 +63,13 @@
 		methods: {
 			setState(id, state) {
 				modifyState(id, state).then(res => {
-
+					this.getMarketers(this.currPage)
 				})
 			},
 			getMarketers(pageNum) {
 				getMarketersByState(0, pageNum).then(
 					res => {
-						this.userList = res.data;
+						this.userList = res.data.records;
 					})
 			}
 		},
