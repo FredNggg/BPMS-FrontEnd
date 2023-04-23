@@ -191,6 +191,7 @@
 					uni.showToast({
 						title: '已驳回'
 					})
+					this.rejectShow = false;
 					getMerchantListByRecordState(1, this.currPage).then(
 						res => {
 							this.records = res.data.records;

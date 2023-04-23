@@ -62,7 +62,7 @@
 								);
 								uni.setStorageSync(
 									'userRole',
-									res.data.userVO.userRole
+									userRole
 								);
 								uni.setStorageSync(
 									'instituition',

@@ -48,7 +48,7 @@ const _sfc_main = {
               );
               common_vendor.index.setStorageSync(
                 "userRole",
-                res2.data.userVO.userRole
+                userRole
               );
               common_vendor.index.setStorageSync(
                 "instituition",

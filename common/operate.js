@@ -1,4 +1,4 @@
 export default {
     //接口
-    api: "http://localhost:8080",
+    api: "http://192.168.31.11:8080",
 }

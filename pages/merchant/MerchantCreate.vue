@@ -26,7 +26,7 @@
 			</u-form-item>
 			<u-form-item label="商圈位置" prop="location" borderBottom>
 				<u--input style="width: 60%;" v-model="recordInfo.district" suffixIcon="map-fill"
-					suffixIconStyle="color: #909399" placeholder="请先定位, 系统自动识别" disabled></u--input>
+					suffixIconStyle="color: #909399" placeholder="请先定位, 系统自动识别"></u--input>
 			</u-form-item>
 			<u-form-item label="商户照片" prop="fullName" borderBottom ref="name">
 				<view class="pictures">
@@ -314,6 +314,15 @@
 				createMerchant(this.recordInfo).then(
 					res => {
 						console.log(res);
+						wx.requestSubscribeMessage({
+						  tmplIds: ['4valJSLcPDi0RTYgkuKXEPaSLuVkmGXRCZVvp66cipU','7Vn5CQ3llVED7A45rn43QqcEVZuL9vIIAKj0d_XGQwA'],
+						  success (res) { 
+							  console.log(res);
+						  },
+						  fail (err) {
+							  console.log(err)
+						  }
+						})
 					}
 				)
 			}
