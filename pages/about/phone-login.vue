@@ -131,6 +131,18 @@
 									'instituition',
 									res.data.institutionVO
 								);
+								uni.login({
+									provider: 'weixin', //使用微信登录
+									success: function(res) {
+										uni.setStorageSync(
+											'wechatLoginCode',
+											res.code
+										);;
+									},
+									fail: err => {
+										reject(err)
+									}
+								});
 								uni.$u.toast('登录成功');
 								uni.reLaunch({
 									url: '/pages/index/index'

@@ -13,6 +13,7 @@
 				所属支行：{{userInfo}}
 			</view>
 			<view class="others">
+				<button class="quit" type="primary" @tap="bindWechat">绑定微信</button>
 				<button class="quit">查看个人资料</button>
 				<button type="warn" class="quit" @tap="logout()">登出</button>
 			</view>
@@ -24,7 +25,7 @@
 
 <script>
 	import unlogin from '@/components/unlogin.vue'
-
+	import {wechatBind} from '@/api/user.js'
 	export default {
 		components: {
 			unlogin
@@ -46,6 +47,11 @@
 				uni.clearStorageSync();
 				uni.reLaunch({
 					url: '/pages/index/index'
+				})
+			},
+			bindWechat(){
+				wechatBind(this.roleId, this.userInfo.phone, uni.getStorageSync('wechatLoginCode')).then(res=>{
+					console.log(res);
 				})
 			}
 		},

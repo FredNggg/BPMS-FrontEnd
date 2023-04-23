@@ -28,8 +28,10 @@ export function createApp() {
 	app.use(uviewPlus)
 	// app.use(VueJsonp)
 	app.use(store)
+	
 	return {
 		app,
 	}
+	
 }
 // #endif

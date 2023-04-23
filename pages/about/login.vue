@@ -5,15 +5,16 @@
 	<button @tap="login(1)">
 		点击以管理员身份登录
 	</button>
-	<button type="primary" @tap="wechatLogin()">微信一键登录</button>
+	<button type="primary" @tap="weChatLogin(0)">微信一键登录(管理员)</button>
+	<button type="primary" @tap="weChatLogin(1)">微信一键登录(营销人员)</button>
 	<button @tap="phoneLogin()">手机号码登录</button>
 </template>
 
 <script>
 	import {
-		useStore
-	} from 'vuex';
-	const store = useStore();
+		wechatLogin
+	} from '@/api/user.js'
+
 
 	export default {
 		data() {
@@ -23,7 +24,7 @@
 		},
 		methods: {
 			login(data) {
-				this.$store.commit('setRoleId', data);
+
 				uni.login({
 					provider: 'weixin', //使用微信登录
 					success: function(loginRes) {
@@ -40,10 +41,50 @@
 					url: '/pages/index/index'
 				})
 			},
-			wechatLogin(){
-				
+			weChatLogin(userRole) {
+				uni.login({
+					provider: 'weixin', //使用微信登录
+					success: function(res) {
+						uni.setStorageSync(
+							'wechatLoginCode',
+							res.code
+						);
+						wechatLogin(userRole, uni.getStorageSync('wechatLoginCode')).then(res => {
+							console.log(res);
+							if(res.code == 200){
+								uni.setStorageSync(
+									'userInfo',
+									res.data.userVO
+								);
+								uni.setStorageSync(
+									'token',
+									res.Authorization
+								);
+								uni.setStorageSync(
+									'userRole',
+									res.data.userVO.userRole
+								);
+								uni.setStorageSync(
+									'instituition',
+									res.data.institutionVO
+								);
+								uni.$u.toast('登录成功');
+								uni.reLaunch({
+									url: '/pages/index/index'
+								});
+							} else {
+								uni.$u.toast(res.msg);
+							}
+							
+						})
+					},
+					fail: err => {
+						reject(err)
+					}
+				});
+
 			},
-			phoneLogin(){
+			phoneLogin() {
 				uni.navigateTo({
 					url: '/pages/about/phone-login'
 				})

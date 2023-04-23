@@ -1,5 +1,8 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const api_user = require("../../api/user.js");
+require("../../utils/request.js");
+require("../../common/operate.js");
 const unlogin = () => "../../components/unlogin.js";
 const _sfc_main = {
   components: {
@@ -20,6 +23,11 @@ const _sfc_main = {
       common_vendor.index.clearStorageSync();
       common_vendor.index.reLaunch({
         url: "/pages/index/index"
+      });
+    },
+    bindWechat() {
+      api_user.wechatBind(this.roleId, this.userInfo.phone, common_vendor.index.getStorageSync("wechatLoginCode")).then((res) => {
+        console.log(res);
       });
     }
   },
@@ -44,7 +52,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   }, $data.roleId === 0 ? {} : {}, {
     d: common_vendor.t($data.userInfo.name),
     e: common_vendor.t($data.userInfo),
-    f: common_vendor.o(($event) => $options.logout())
+    f: common_vendor.o((...args) => $options.bindWechat && $options.bindWechat(...args)),
+    g: common_vendor.o(($event) => $options.logout())
   }));
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/fred/Course/Graduation Project/BPMS-FrontEnd/pages/about/about.vue"]]);

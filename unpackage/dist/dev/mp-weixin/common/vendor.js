@@ -6832,11 +6832,6 @@ const createSubpackageApp = initCreateSubpackageApp();
  * @license MIT
  */
 var storeKey = "store";
-function useStore(key) {
-  if (key === void 0)
-    key = null;
-  return inject(key !== null ? key : storeKey);
-}
 function forEachValue(obj, fn) {
   Object.keys(obj).forEach(function(key) {
     return fn(obj[key], key);
@@ -7736,5 +7731,4 @@ exports.resolveComponent = resolveComponent;
 exports.s = s;
 exports.sr = sr;
 exports.t = t;
-exports.useStore = useStore;
 exports.wx$1 = wx$1;
