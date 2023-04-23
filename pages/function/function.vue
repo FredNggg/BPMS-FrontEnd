@@ -26,7 +26,7 @@ export default {
   },
   methods: {},
   onLoad(){
-    this.functionList = uni.getStorageSync('roleId') === 0 ? MARKETER_LIST : ADMIN_LIST;
+    this.functionList = uni.getStorageSync('userRole') === 1 ? MARKETER_LIST : ADMIN_LIST;
   }
 }
 </script>

@@ -13,7 +13,7 @@ const _sfc_main = {
   },
   methods: {},
   onLoad() {
-    this.functionList = common_vendor.index.getStorageSync("roleId") === 0 ? common_functionMenu.MARKETER_LIST : common_functionMenu.ADMIN_LIST;
+    this.functionList = common_vendor.index.getStorageSync("userRole") === 1 ? common_functionMenu.MARKETER_LIST : common_functionMenu.ADMIN_LIST;
   }
 };
 if (!Array) {

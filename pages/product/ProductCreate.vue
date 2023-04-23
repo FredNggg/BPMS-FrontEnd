@@ -42,6 +42,7 @@ import dayjs from 'dayjs';
 					adminId: 1,
 					description: "产品1的描述"
 				},
+				adminId: null,
 				model: {
 					product: {
 						name: "",
@@ -98,13 +99,14 @@ import dayjs from 'dayjs';
 							type: this.product.typeNum,
 							description: this.product.description,
 							date: dateText,
-							adminId: 6,
+							adminId: uni.getStorageSync('userInfo').id,
 						}).then(res => {
 							console.log(res)
 						})
 						uni.showToast({
 							title: '提交成功',
-						})
+						});
+						uni.reLaunch({url: '/pages/index/index'});
 					}).catch(
 					err => {
 						uni.showToast({

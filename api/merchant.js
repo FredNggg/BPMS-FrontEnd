@@ -186,6 +186,8 @@ export const createMerchant = function({
 	chargeIdNumber, // 实际负责人身份证号码
 	idCardIssueDate, // 负责人身份证签发日期
 	idCardExpiryDate, // 负责人身份证失效日期
+	marketerId,
+	marketerLocation,
 }) {
 	const data = {
 		recordId: recordId,
@@ -221,6 +223,9 @@ export const createMerchant = function({
 		chargeIdNumber: chargeIdNumber,
 		idCardIssueDate: idCardIssueDate,
 		idCardExpiryDate: idCardExpiryDate,
+		currentState: 1,
+		marketerId: marketerId,
+		marketerLocation: marketerLocation,
 	};
 	return request({
 		url: `${PREFIX}/submission`,

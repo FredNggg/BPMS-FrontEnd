@@ -13,9 +13,7 @@
 			<u-form-item label="商户联系方式" prop="phoneNumber" borderBottom ref="phoneNumber">
 				<u--input v-model="recordInfo.phoneNumber" placeholder="请输入商户联系方式"></u--input>
 			</u-form-item>
-			<u-form-item label="商户名称" prop="fullName" borderBottom ref="name">
-				<u--input v-model="recordInfo.fullName"></u--input>
-			</u-form-item>
+
 			<u-form-item label="实际负责人信息" prop="fullName" borderBottom ref="name">
 				<u--textarea v-model="recordInfo.principalInfo" placeholder="请输入实际负责人信息"></u--textarea>
 			</u-form-item>
@@ -110,18 +108,11 @@
 					</u-form-item>
 					<u-form-item label="实际负责人性别" borderBottom>
 
-						<u-radio-group
-						    v-model="recordInfo.chargeGender"
-						  >
-						   <u-radio
-						        :customStyle="{marginBottom: '8px',marginRight: '8px'}"
-						        v-for="(item, index) in genderList"
-						        :key="index"
-						        :label="item.name"
-						        :name="item.value"
-						
-						      ></u-radio>
-						  </u-radio-group>
+						<u-radio-group v-model="recordInfo.chargeGender">
+							<u-radio :customStyle="{marginBottom: '8px',marginRight: '8px'}"
+								v-for="(item, index) in genderList" :key="index" :label="item.name"
+								:name="item.value"></u-radio>
+						</u-radio-group>
 					</u-form-item>
 					<u-form-item label="实际负责人出生日期" borderBottom>
 						<u--input v-model="recordInfo.chargeBirth"></u--input>
@@ -148,7 +139,7 @@
 			</u-collapse>
 
 		</u--form>
-		<u-button type="primary">建档</u-button>
+		<u-button @tap="submission" type="primary">建档</u-button>
 	</view>
 </template>
 
@@ -224,6 +215,11 @@
 					chargeIdNumber: '', // 实际负责人身份证号码
 					idCardIssueDate: '', // 负责人身份证签发日期
 					idCardExpiryDate: '', // 负责人身份证失效日期
+					marketerId: null,
+					marketerLocation: {
+						latitude: 17,
+						longitude: 83
+					},
 				},
 				fileList: [
 					[],
@@ -241,6 +237,8 @@
 					success: (res) => {
 						this.recordInfo.coordinate.longitude = res.longitude;
 						this.recordInfo.coordinate.latitude = res.latitude;
+						this.recordInfo.marketerLocation.longitude = res.longitude;
+						this.recordInfo.marketerLocation.latitude = res.latitude;
 						console.log(this.recordInfo.coordinate)
 						qqmapsdk.reverseGeocoder({
 							location: this.location,
@@ -310,14 +308,16 @@
 				});
 
 			},
-			submission(){
+			submission() {
+				this.recordInfo.marketerId = uni.getStorageSync('userInfo').id;
+
 				createMerchant(this.recordInfo).then(
 					res => {
 						console.log(res);
 					}
 				)
 			}
-		
+
 		}
 	}
 </script>
