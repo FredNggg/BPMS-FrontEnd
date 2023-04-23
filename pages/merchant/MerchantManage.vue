@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<merchant-list></merchant-list>
+		<merchant-list :mode="1"></merchant-list>
 	</view>
 </template>
 

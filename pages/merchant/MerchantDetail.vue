@@ -127,6 +127,8 @@
 </template>
 
 <script>
+	import {getMerchantDetail} from '@/api/merchant.js'
+	
 	export default {
 		data() {
 			return {
@@ -208,6 +210,12 @@
 				}
 				return res;
 			}
+		},
+		onLoad(options) {
+			const id = options.id;
+			getMerchantDetail(id).then(res=>{
+				this.merchant = res.data;
+			})
 		}
 	}
 </script>

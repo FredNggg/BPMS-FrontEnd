@@ -3,11 +3,10 @@
 */
 <template>
 	<view>
-		商户列表
 		<u-list>
 			<u-list-item v-for="(item, index) in records">
 				<view class="merchant" @tap="toDetail(item.recordId)">
-					<u--image :src="item.pictureList[0].url" width="100rpx" height="100rpx" radius="20rpx"></u--image>
+					<u--image :src="item.doorwayUrl" width="100rpx" height="100rpx" radius="20rpx"></u--image>
 					<view class="text">
 						<view class="title">{{item.abbreviation}}</view>
 						<view class="info">
@@ -21,8 +20,8 @@
 							</u-icon>
 						</view>
 						<view class="info">
-							<u-icon name="phone" color="#999" label-color="#999" label-size="24rpx"
-								:label="item.phoneNumber"></u-icon>
+							<u-icon name="clock" color="#999" label-color="#999" label-size="24rpx"
+								:label="item.lastTime"></u-icon>
 						</view>
 					</view>
 				</view>
@@ -36,14 +35,17 @@
 
 <script>
 	import {
-		getMerchantListByMarketer
+		getMerchantListByMarketer,
+		getAllMerchants
 	} from '@/api/merchant.js'
 
 	export default {
 		name: "MerchantList",
+		props: ['mode'],
 		data() {
 			return {
 				currPage: 1,
+				userId: null,
 				records: [{
 						"recordId": 65,
 						"fullName": "华为电子通信有限公司(南京)鼓楼营业部",
@@ -141,13 +143,23 @@
 				uni.navigateTo({
 					url: '/pages/merchant/MerchantDetail'
 				})
+			},
+			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员获取自己
+				if (mode == 1) {
+					getAllMerchants(this.currPage).then(res => {
+						this.records = res.data.records;
+					})
+				} else if (mode == 0) {
+					getMerchantListByMarketer(this.userId, this.currPage).then(
+						res => {
+							this.records = res.data.records;
+						});
+				}
 			}
 		},
 		created() {
-			getMerchantListByMarketer(1, 1, 5, 0).then(
-				res => {
-					this.records = res.data.records;
-				})
+			this.userId = uni.getStorageSync('userInfo').id;
+			this.getMerchantList(this.mode);
 		}
 
 	}

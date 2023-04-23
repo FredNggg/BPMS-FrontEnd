@@ -7,7 +7,7 @@
 		<u-list>
 			<u-list-item v-for="(item, index) in records">
 				<view class="whole">
-					<view class="merchant" @tap="toDetail(item.recordId)">
+					<view class="merchant" @tap="toDetail(item.id)">
 						<u--image :src="item.doorwayUrl" width="100rpx" height="100rpx"
 							radius="20rpx"></u--image>
 						<view class="text">
@@ -22,7 +22,7 @@
 									:label="item.location">
 								</u-icon>
 							</view>
-							<view class="clock">
+							<view class="info">
 								<u-icon name="clock" color="#999" label-color="#999" label-size="24rpx"
 									:label="item.lastTime"></u-icon>
 							</view>
@@ -30,9 +30,9 @@
 
 					</view>
 					<view class="check">
-						<u-icon @tap="approveMerchant(item.recordId)" name="checkmark" color="#2979ff"
+						<u-icon @tap="approveMerchant(item.id)" name="checkmark" color="#2979ff"
 							label-color="#2979ff" size="24" label="通过"></u-icon>
-						<u-icon @tap="reject(item.recordId)" name="close" color="#f98172" label-color="#f98172" size="24" label="驳回"></u-icon>
+						<u-icon @tap="reject(item.id)" name="close" color="#f98172" label-color="#f98172" size="24" label="驳回"></u-icon>
 					</view>
 
 				</view>
@@ -53,7 +53,8 @@
 
 <script>
 	import {
-		getMerchantListByRecordState
+		getMerchantListByRecordState,
+		merchantCheck
 	} from '@/api/merchant.js'
 	// 审核通过 recordState2, 拒绝为3
 	export default {
@@ -61,6 +62,7 @@
 		data() {
 			return {
 				currPage: 1,
+				auditorId: null,
 				records: [
 					// {
 					// 	"recordId": 65,
@@ -160,13 +162,19 @@
 		methods: {
 			toDetail(id) {
 				uni.navigateTo({
-					url: '/pages/merchant/MerchantDetail'
+					url: `/pages/merchant/MerchantDetail?id=${id}`
 				})
 			},
 			approveMerchant(merchantId) {
+				merchantCheck(merchantId, this.auditorId, 2)
 				uni.showToast({
 					title: '已通过'
 				})
+				getMerchantListByRecordState(1, this.currPage).then(
+					res => {
+						this.records = res.data.records;
+					}
+				);
 			},
 			reject(merchantId) {
 				this.rejectId = merchantId;
@@ -178,6 +186,16 @@
 						icon: 'error',
 						title: '请填写理由'
 					})
+				} else {
+					merchantCheck(this.rejectId, this.auditorId, 3, this.explanation)
+					uni.showToast({
+						title: '已驳回'
+					})
+					getMerchantListByRecordState(1, this.currPage).then(
+						res => {
+							this.records = res.data.records;
+						}
+					);
 				}
 			},
 			close() {
@@ -190,7 +208,8 @@
 				res => {
 					this.records = res.data.records;
 				}
-			)
+			);
+			this.auditorId = uni.getStorageSync('userInfo').id;
 		}
 
 	}
@@ -220,7 +239,7 @@
 	.merchant {
 		display: flex;
 		flex-direction: row;
-		width: 80%;
+		width: 60%;
 		background-color: #ffffff;
 		margin: 10rpx 20rpx;
 		// border-radius: 20rpx;
