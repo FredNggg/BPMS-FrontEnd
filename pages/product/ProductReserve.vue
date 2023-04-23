@@ -136,7 +136,7 @@
 						this.product = this.model.product;
 						const dateText = new dayjs(new Date()).format("YYYY-MM-DD hh:mm:ss");
 						reserveProduct({
-							marketerId: this.product.marketerId,
+							marketerId: uni.getStorageSync('userInfo').id,
 							productId: this.product.productId,
 							customerName: this.product.customerName,
 							cardId: this.product.cardId,
