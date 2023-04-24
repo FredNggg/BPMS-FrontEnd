@@ -9,7 +9,7 @@ export default class Request {
 			data = param.data || {},
 			token = param.token || "",
 			hideLoading = param.hideLoading || false;
-
+			
 		//拼接完整请求地址
 		let requestUrl = operate.api + url;
 		//拼接完整请求地址（根据环境切换）
@@ -19,10 +19,11 @@ export default class Request {
 		// header: {'content-type' : "application/x-www-form-urlencoded"},)
 		if (method) {
 			method = method.toUpperCase(); //小写改为大写
-			if (method == "POST") {
+			if (param.hasFile) { // 含有文件
 				header = {
 					// 'content-type': "application/x-www-form-urlencoded"
-					'content-type': "application/json",
+					'content-type': " multipart/form-data",
+					
 				};
 			} else {
 				header = {

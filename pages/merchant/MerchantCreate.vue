@@ -28,7 +28,7 @@
 				<u--input style="width: 60%;" v-model="recordInfo.district" suffixIcon="map-fill"
 					suffixIconStyle="color: #909399" placeholder="请先定位, 系统自动识别"></u--input>
 			</u-form-item>
-			<u-form-item label="商户照片" prop="fullName" borderBottom ref="name">
+			<u-form-item label="商户照片(证照信息可自动识别)" prop="fullName" borderBottom ref="name">
 				<view class="pictures">
 					<view class="pictureItem">
 						<u-upload :file-list="fileList[0]" :max-count="1" @afterRead="afterRead($event, 0)"
@@ -140,6 +140,7 @@
 
 		</u--form>
 		<u-button @tap="submission" type="primary">建档</u-button>
+		<u-button @tap="submissionTest" type="primary">建档测试</u-button>
 	</view>
 </template>
 
@@ -158,6 +159,10 @@
 	import {
 		createMerchant
 	} from '@/api/merchant.js';
+	import {
+		licenseRecognize
+	} from '@/api/recognize.js';
+	import operate from '@/common/operate.js'
 
 
 	export default {
@@ -174,6 +179,51 @@
 						disabled: false
 					},
 				],
+				testRecordInfo: {
+					recordId: 0,
+					fullName: "金拱门",
+					abbreviation: "嗷嗷",
+					location: "啊啊啊啊",
+					district: "啊啊啊啊",
+					phoneNumber: "1233211231",
+					coordinate: {
+						latitude: 32.123456,
+						longitude: 118.123456
+					},
+					receiptStatus: 0,
+					principalInfo: "",
+					"creditCode": "ABCDE123456789",
+					"unitName": "金拱门（中国）有限公司",
+					"address": "江苏省南京市鼓楼区广州路19号",
+					"compositionForm": "ss",
+					"businessScope": "餐饮业",
+					"establishmentDate": "2019-09-01",
+					"legalPersonName": "liulu",
+					"legalPersonContact": "17352252954",
+					"registeredCapital": "1000万",
+					"idNumber": "1000000000",
+					"validityTime": "2020-09-01",
+					"approvalDate": "2060-09-01",
+					"companyType": "有限责任公司",
+					"chargeName": "liulu",
+					"chargeGender": 1,
+					"chargeBirth": "2002-09-24",
+					"chargeNationality": "汉",
+					"chargeContact": "17352252954",
+					"chargeAddress": "南京大学陶园南楼",
+					"chargeIdNumber": "620123000000000000",
+					"idCardIssueDate": "2019-07-01",
+					"idCardExpiryDate": "2029-07-01",
+					"marketerName": "lll",
+					"marketerLocation": {
+						"latitude": 33.050361,
+						"longitude": 118.782421
+					},
+					"pictureList": [{
+						"type": 3,
+						"url": "https://wx3.sinaimg.cn/orj360/6c614a46ly1hd9xd7qc1xj237m24tx6p.jpg"
+					}, ],
+				},
 				recordInfo: {
 					recordId: 0,
 					fullName: "",
@@ -284,6 +334,9 @@
 					status: 'uploading',
 					message: '上传中'
 				})
+				this.uploadOCR(event.file.url, type).then(res => {
+					console.log(res);
+				})
 				OBSUpload(event.file.url, (res) => {
 					if (res.statusCode == '204') {
 						const spliter = res.header.Location.split('/');
@@ -315,16 +368,80 @@
 					res => {
 						console.log(res);
 						wx.requestSubscribeMessage({
-						  tmplIds: ['4valJSLcPDi0RTYgkuKXEPaSLuVkmGXRCZVvp66cipU','7Vn5CQ3llVED7A45rn43QqcEVZuL9vIIAKj0d_XGQwA'],
-						  success (res) { 
-							  console.log(res);
-						  },
-						  fail (err) {
-							  console.log(err)
-						  }
+							tmplIds: ['4valJSLcPDi0RTYgkuKXEPaSLuVkmGXRCZVvp66cipU',
+								'7Vn5CQ3llVED7A45rn43QqcEVZuL9vIIAKj0d_XGQwA'
+							],
+							success(res) {
+								console.log(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
 						})
 					}
 				)
+			},
+			submissionTest() {
+				this.testRecordInfo.marketerId = uni.getStorageSync('userInfo').id;
+
+				createMerchant(this.testRecordInfo).then(
+					res => {
+						console.log(res);
+						wx.requestSubscribeMessage({
+							tmplIds: ['4valJSLcPDi0RTYgkuKXEPaSLuVkmGXRCZVvp66cipU',
+								'7Vn5CQ3llVED7A45rn43QqcEVZuL9vIIAKj0d_XGQwA'
+							],
+							success(res) {
+								console.log(res);
+							},
+							fail(err) {
+								console.log(err)
+							}
+						})
+					}
+				)
+			},
+			uploadOCR(filePath, mode) { // mode: 0-营业执照, 1-身份证正面，2-身份证背面
+				let url = operate.api + '/recognize';
+	
+				switch (mode) {
+					case 0:
+						url += '/businessLicence';
+						break;
+					case 1:
+						url += '/idCard/front';
+						break;
+					case 2:
+						url += '/idCard/back';
+						break;
+					case 3:
+						url += '/facade';
+						break;
+					default:
+						return;
+						break;
+				}
+				return new Promise((resolve, reject) => {
+					let a = uni.uploadFile({
+						url: url, // 仅为示例，非真实的接口地址
+						filePath: filePath,
+						name: 'file',
+						formData: {
+							user: 'test'
+						},
+						success: (res) => {
+							console.log(res);
+							const result = JSON.parse(res.data);
+							if(result.code == 200){
+								for(let key in result.data) {
+								    this.recordInfo[key] = result.data[key]
+								}
+							}
+							
+						}
+					});
+				})
+
 			}
 
 		}
