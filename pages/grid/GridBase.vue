@@ -198,17 +198,17 @@
 				return polygons;
 			},
 			switchToMyPosition() { // 切换到我现在的定位
-				console.log('你摸到我了')
+				// console.log('你摸到我了')
 				uni.getLocation({
 					success: (res) => {
-						// console.log(res)
-						// this.currLocation.latitude = res.latitude;
-						// this.currLocation.longitude = res.longitude;
-						if (this.gridList.length > 0) {
-							console.log('gridList', this.gridList);
-							this.currLocation.latitude = this.gridList[0].points[0].latitude;
-							this.currLocation.longitude = this.gridList[0].points[0].longitude;
-						}
+						console.log(res)
+						this.currLocation.latitude = res.latitude;
+						this.currLocation.longitude = res.longitude;
+						// if (this.gridList.length > 0) {
+						// 	console.log('gridList', this.gridList);
+						// 	this.currLocation.latitude = this.gridList[0].points[0].latitude;
+						// 	this.currLocation.longitude = this.gridList[0].points[0].longitude;
+						// }
 
 					},
 					fail: (err) => {
