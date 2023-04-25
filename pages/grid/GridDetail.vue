@@ -18,6 +18,9 @@
 				<u-form-item label="创建时间">
 					{{grid.createTime}}
 				</u-form-item>
+				<u-form-item v-if="userRole==0" label="网格状态">
+					{{grid.createTime}}
+				</u-form-item>
 			</u--form>
 		</view>
 	</view>
@@ -34,6 +37,7 @@
 		data() {
 			return {
 				institutionName: '',
+				userRole: null,
 				grid: {
 					"id": 6,
 					"name": "霞道",
@@ -82,6 +86,7 @@
 				this.polygons[0].points = res.data.points;
 				console.log(res);
 			})
+			this.userRole = uni.getStorageSync('userRole');
 			// console.log(option)
 		}
 	}

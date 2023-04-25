@@ -5,7 +5,7 @@
 	<view>
 		<u-list>
 			<u-list-item v-for="(item, index) in records">
-				<view class="merchant" @tap="toDetail(item.recordId)">
+				<view class="merchant" @tap="toDetail(item.id)">
 					<u--image :src="item.doorwayUrl" width="100rpx" height="100rpx" radius="20rpx"></u--image>
 					<view class="text">
 						<view class="title">{{item.abbreviation}}</view>
@@ -141,7 +141,7 @@
 		methods: {
 			toDetail(id) {
 				uni.navigateTo({
-					url: '/pages/merchant/MerchantDetail'
+					url: `/pages/merchant/MerchantDetail?id=${id}`
 				})
 			},
 			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员获取自己

@@ -128,3 +128,10 @@ export const merchantCheck = (merchantId, auditorId, recordState, explanation = 
 		method: 'POST',
 	})
 }
+
+export const getTrackByMarketerId = (marketerId, date) => {
+	return request({
+		url: `${PREFIX}/track/${marketerId}/date?date=${date}`,
+		method: 'GET',
+	})
+}

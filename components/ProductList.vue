@@ -18,7 +18,7 @@
 							:text="type[item.type]" plain size="mini"></u-tag>
 						<u-icon style="margin-left: 8px;" name="clock" :label="item.createTime.split(' ')[0]"></u-icon>
 						<view v-if="this.mode === 0" style="margin-left: auto;">
-							<u-icon label="预约" @tap="reserve(item.id)" label-pos="left" name="arrow-right"></u-icon>
+							<u-icon label="预约" @tap="reserve(item.id, item.name)" label-pos="left" name="arrow-right"></u-icon>
 						</view>
 						<view v-if="this.mode === 1" style="margin-left: auto;">
 							<u-icon label="查看详情"  label-pos="left" name="arrow-right"></u-icon>
@@ -101,9 +101,9 @@
 				}
 
 			},
-			reserve(productId) {
+			reserve(productId, name) {
 				uni.navigateTo({
-					url: `/pages/product/ProductReserve?id=${productId}`,
+					url: `/pages/product/ProductReserve?id=${productId}&name=${name}`,
 					animationType: 'slide-in-bottom',
 				})
 			},

@@ -45,9 +45,9 @@
 		data() {
 			return {
 				product: {
-					marketerId: 1,
-					productId: 130,
-					name: '中欧医疗混合基金A',
+					marketerId: null,
+					productId: null,
+					name: '',
 					cardId: '',
 					customerName: '',
 					customerId: '423232399345666644', // 身份证号
@@ -161,9 +161,12 @@
 				)
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			// this.getAddressText()
 			// getAddress()
+			this.product.name = option.name;
+			this.product.productId = option.id;
+			this.product.marketerId = uni.getStorageSync('userInfo').id;
 		},
 		onReady() {
 			this.$refs.reserveForm.setRules(this.rules);

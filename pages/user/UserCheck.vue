@@ -7,7 +7,7 @@
 					<u-form-item label="用户id">{{item.id}}</u-form-item>
 					<u-form-item label="用户姓名">{{item.name}}</u-form-item>
 					<u-form-item label="手机号码">{{item.phone}}</u-form-item>
-					<u-form-item label="注册时间">{{item.register_time}}</u-form-item>
+					<u-form-item label="注册时间">{{item.registerTime}}</u-form-item>
 					<u-form-item label="状态">{{item.state}}</u-form-item>
 					<view class="button">
 						<view class="item"><u-button @tap="setState(item.id, 1)" type="success">通过</u-button></view>

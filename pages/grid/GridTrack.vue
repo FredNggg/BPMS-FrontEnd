@@ -115,9 +115,9 @@
 			},
 			markerTap(e) {
 				console.log(e);
-				// uni.navigateTo({
-				// 	url: `/pages/merchant/MerchantDetail?id=${e.markerId}`
-				// })
+				uni.navigateTo({
+					url: `/pages/merchant/MerchantDetail?id=${e.markerId}`
+				})
 			},
 			formatter(type, value) {
 				if (type === 'year') {

@@ -113,7 +113,7 @@
 			<u--form labelPosition="left" labelWidth="160rpx"
 				labelStyle="border-left: solid 10rpx #FF689A;padding-left: 10rpx;">
 				<u-form-item label="建档时间">
-					{{merchant.createTime}}
+					{{merchant.lastTime}}
 				</u-form-item>
 				<u-form-item label="建档编号">
 					{{merchant.marketerId}}
