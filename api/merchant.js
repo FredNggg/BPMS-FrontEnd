@@ -142,3 +142,10 @@ export const getMerchantHistory = (merchantId) => {
 		method: 'GET',
 	})
 }
+
+export const searchMerchant = (fullName, currPage, pageSize = 10) => {
+	return request({
+		url: `${PREFIX}/fullname/${fullName}?currPage=${currPage}&pageSize=${pageSize}`,
+		method: 'GET',
+	})
+}

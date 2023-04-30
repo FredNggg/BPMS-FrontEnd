@@ -2,7 +2,12 @@
 * 建档列表
 */
 <template>
+	
 	<view>
+		<u-sticky>
+			<u-search placeholder="请输入商户名称"
+			@change="search" :clearabled="true" v-model="keyword"></u-search>
+		</u-sticky>
 		<u-list>
 			<u-list-item v-for="(item, index) in records">
 				<view class="merchant" @tap="toDetail(item.id)">
@@ -36,7 +41,8 @@
 <script>
 	import {
 		getMerchantListByMarketer,
-		getAllMerchants
+		getAllMerchants,
+		searchMerchant
 	} from '@/api/merchant.js'
 
 	export default {
@@ -44,6 +50,7 @@
 		props: ['mode'],
 		data() {
 			return {
+				keyword: '',
 				currPage: 1,
 				userId: null,
 				records: [{
@@ -155,7 +162,15 @@
 							this.records = res.data.records;
 						});
 				}
-			}
+			},
+			search(value) {
+				this.currPage = 1;
+				searchMerchant(value, this.currPage).then(
+					res => {
+						const data = res.data.records;
+						this.records = data;
+					})
+			},
 		},
 		created() {
 			this.userId = uni.getStorageSync('userInfo').id;
