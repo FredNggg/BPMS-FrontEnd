@@ -12,6 +12,7 @@
     "pages/merchant/MerchantCreate",
     "pages/merchant/MerchantDetail",
     "pages/merchant/MerchantView",
+    "pages/merchant/MerchantHistory",
     "pages/grid/GridTrack",
     "pages/grid/GridManage",
     "pages/product/ProductCreate",

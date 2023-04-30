@@ -135,3 +135,10 @@ export const getTrackByMarketerId = (marketerId, date) => {
 		method: 'GET',
 	})
 }
+
+export const getMerchantHistory = (merchantId) => {
+	return request({
+		url: `${PREFIX}/history/${merchantId}`,
+		method: 'GET',
+	})
+}

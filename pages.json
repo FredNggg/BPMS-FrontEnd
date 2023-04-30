@@ -75,6 +75,11 @@
 				"navigationBarTitleText": "我的建档"
 			}
 		}, {
+			"path": "pages/merchant/MerchantHistory",
+			"style": {
+				"navigationBarTitleText": "建档历史"
+			}
+		},{
 			"path": "pages/grid/GridTrack",
 			"style": {
 				"navigationBarTitleText": "我的轨迹"

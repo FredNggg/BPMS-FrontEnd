@@ -72,6 +72,7 @@
 
 		},
 		onReady() {
+			this.marketerId = uni.getStorageSync('userInfo').id;
 			getReserveRecord(this.marketerId, this.currPage).then(res => {
 				this.records = res.data.records;
 			})

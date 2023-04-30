@@ -131,6 +131,7 @@ if (!Math) {
   "./pages/merchant/MerchantCreate.js";
   "./pages/merchant/MerchantDetail.js";
   "./pages/merchant/MerchantView.js";
+  "./pages/merchant/MerchantHistory.js";
   "./pages/grid/GridTrack.js";
   "./pages/grid/GridManage.js";
   "./pages/product/ProductCreate.js";

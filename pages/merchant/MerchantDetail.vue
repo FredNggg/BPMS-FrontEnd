@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<u-button icon="clock" @tap="toHistory(this.merchantId)">建档历史记录</u-button>
 		<view class="form">
 			<u--form labelPosition="left" labelWidth="160rpx"
 				labelStyle="border-left: solid 10rpx #48BFFF;padding-left: 10rpx;">
@@ -24,7 +25,7 @@
 				<u-form-item label="照片">
 					<u-album :urls="merchant.pictureList" keyName="url"></u-album>
 				</u-form-item>
-				
+
 			</u--form>
 		</view>
 		<u-collapse>
@@ -70,9 +71,9 @@
 					<u-form-item label="公司类型">
 						{{merchant.companyType}}
 					</u-form-item>
-			
+
 				</u--form>
-				
+
 			</u-collapse-item>
 			<u-collapse-item title="实际负责人信息">
 				<u--form labelPosition="left" labelWidth="160rpx"
@@ -127,11 +128,14 @@
 </template>
 
 <script>
-	import {getMerchantDetail} from '@/api/merchant.js'
-	
+	import {
+		getMerchantDetail
+	} from '@/api/merchant.js'
+
 	export default {
 		data() {
 			return {
+				merchantId: null,
 				merchant: {
 					"recordId": 65,
 					"fullName": "华为电子通信有限公司(南京)鼓楼营业部",
@@ -209,14 +213,21 @@
 					res.push(item.url);
 				}
 				return res;
+			},
+			toHistory(id) {
+				uni.navigateTo({
+					url: `/pages/merchant/MerchantHistory?id=${id}`
+				})
 			}
 		},
 		onLoad(options) {
 			const id = options.id;
-			getMerchantDetail(id).then(res=>{
+			this.merchantId = id;
+			getMerchantDetail(id).then(res => {
 				this.merchant = res.data;
 			})
-		}
+		},
+
 	}
 </script>
 
