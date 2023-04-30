@@ -1,11 +1,12 @@
 <template>
 	<view>
-		<u-datetime-picker closeOnClickOverlay ref="datetimePicker" @confirm="confirmDate" :formatter="formatter" :show="datePickerShow" v-model="currTimeStamp" mode="date"></u-datetime-picker>
+		<u-datetime-picker closeOnClickOverlay ref="datetimePicker" @confirm="confirmDate" :formatter="formatter"
+			:show="datePickerShow" v-model="currTimeStamp" mode="date"></u-datetime-picker>
 		<u-button @click="datePickerShow = true">{{currDate}}</u-button>
 		<map style="width: 100%;height: 90vh;" :longitude="currLocation.longitude" :latitude="currLocation.latitude"
 			:polyline="polylines" :markers="markers" @markertap="markerTap">
 		</map>
-		
+
 	</view>
 </template>
 
@@ -32,7 +33,12 @@
 					"recordLocation": {
 						"latitude": 32.123456,
 						"longitude": 118.123456
-					}
+					},
+					marketerLocation: {
+						"latitude": 32.123456,
+						"longitude": 118.123456
+					},
+					distance: 100,
 				}, {
 					"trackId": 1,
 					"marketerId": 0,
@@ -41,7 +47,12 @@
 					"recordLocation": {
 						"latitude": 32.1245,
 						"longitude": 118.123456
-					}
+					},
+					marketerLocation: {
+						"latitude": 32.1245,
+						"longitude": 118.153456
+					},
+					distance: 2000,
 				}, {
 					"trackId": 2,
 					"marketerId": 0,
@@ -50,7 +61,12 @@
 					"recordLocation": {
 						"latitude": 32.1235,
 						"longitude": 118.14
-					}
+					},
+					marketerLocation: {
+						"latitude": 32.1235,
+						"longitude": 118.14
+					},
+					distance: 100,
 				}, {
 					"trackId": 3,
 					"marketerId": 0,
@@ -59,7 +75,12 @@
 					"recordLocation": {
 						"latitude": 32.12355,
 						"longitude": 118.144
-					}
+					},
+					marketerLocation: {
+						"latitude": 32.12455,
+						"longitude": 118.144
+					},
+					distance: 100,
 				}],
 				polylines: [{
 					points: [],
@@ -78,9 +99,10 @@
 			generatePointsFromTrack(track) { // 把 track 中的坐标提取出来
 				const res = [];
 				track.map(item => {
-					res.push(item.recordLocation);
+					res.push(item.marketerLocation);
 
 				})
+
 				console.log(res)
 				return res;
 			},
@@ -108,7 +130,28 @@
 						longitude: item.recordLocation.longitude,
 						iconPath: '/static/icon/image/location.png'
 					});
+					if (item.distance >= 2000) {
+						res.push({
+							id: item.recordId + 6666,
+							label: {
+								anchorX: 0,
+								anchorY: 0,
+								content: '该轨迹点相距商户大于2km',
+								color: '#fff',
+								fontSize: 12,
+								joinCluster: true,
+								borderRadius: 5,
+								padding: 5,
+								textAlign: 'center',
+								//ios系统要求16进制 才有透明度
+								bgColor: '#000000B3',
 
+							},
+							latitude: item.marketerLocation.latitude,
+							longitude: item.marketerLocation.longitude,
+							iconPath: '/static/icon/image/warning.png'
+						})
+					}
 				})
 				console.log(res)
 				return res;
@@ -131,7 +174,7 @@
 				}
 				return value
 			},
-			confirmDate(e){
+			confirmDate(e) {
 				const timeFormat = uni.$u.timeFormat;
 				console.log('e', e, timeFormat(e.value, 'yyyy-mm-dd'))
 				this.currDate = timeFormat(e.value, 'yyyy-mm-dd');

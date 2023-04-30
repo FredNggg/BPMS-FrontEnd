@@ -1,16 +1,15 @@
 <template>
 	<view>
-		{{merchantId}}
-		{{history}}
+
 		<u-collapse>
-			<u-collapse-item v-for="(item, index) in history" :title="item.recordTime" >
+			<u-collapse-item v-for="(item, index) in history" :title="item.recordTime" :value="state[item.recordState]" >
 				<u--form label-width="180rpx">
 					<u-form-item label="档案id">{{item.recordId}}</u-form-item>
 					<u-form-item label="商户id">{{item.merchantId}}</u-form-item>
 					<u-form-item label="建档人姓名">{{item.recorderName}}</u-form-item>
 					<u-form-item label="建档时间">{{item.recordTime}}</u-form-item>
-					<u-form-item label="状态">{{item.state}}</u-form-item>
-				
+					<u-form-item label="状态">{{state[item.recordState]}}</u-form-item>
+					<u-form-item v-if="item.recordState == 3" label="驳回理由">{{item.recordContent}}</u-form-item>
 		
 				</u--form>
 			</u-collapse-item>
@@ -25,7 +24,7 @@
 		data() {
 			return {
 				merchantId: null,
-			
+				state: ['草稿状态', '审核中', '审核通过', '审核拒绝'],
 				history: [
 					
 				]

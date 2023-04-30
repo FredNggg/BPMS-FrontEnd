@@ -3,12 +3,16 @@
 		<u-sticky>
 			<u-picker :show="filterShow" :columns="filterColumns" @confirm="filterConfirm" @cancel="filterShow = false">
 			</u-picker>
-			<u-button @tap="filterShow = true">{{filterText}}</u-button>
+			<u-button @tap="filterShow = true">
+			{{filterText}}
+			</u-button>
 		</u-sticky>
+		<u-search placeholder="请输入产品名称"
+		@change="search" :clearabled="true" v-model="keyword"></u-search>
 		<u-list @scrolltolower="scrolltolower">
 			<u-list-item v-for="(item, index) in products">
 				<view class="product-item">
-					<text class="product-name">{{item.name}}</text>
+					<rich-text class="product-name" :nodes="item.name"></rich-text>
 
 					<view class="product-description">
 						{{item.description}}
@@ -33,7 +37,8 @@
 <script>
 	import {
 		getAllProducts,
-		getProductsByType
+		getProductsByType,
+		productSearch
 	} from '@/api/product.js';
 
 	export default {
@@ -41,6 +46,7 @@
 		props: ['mode'], // mode - 0 营销人员进入产品列表（带预约）。 1 - 管理人员进入产品列表，只查看。
 		data() {
 			return {
+				keyword: '',
 				filterShow: false,
 				filterText: '全部产品',
 				filterColumns: [
@@ -100,6 +106,16 @@
 					)
 				}
 
+			},
+			search(value) {
+				this.currPage = 1;
+				productSearch(value, this.currPage).then(
+					res => {
+						for(const item of res.data.records){
+							item.name.replace(/\<em/gi, '<em style="background-color: #feca35;"')
+						}
+						this.products = res.data.records;
+					})
 			},
 			reserve(productId, name) {
 				uni.navigateTo({
@@ -166,6 +182,7 @@
 		.product-name {
 			font-size: 32rpx;
 			font-weight: bold;
+			
 		}
 
 		.product-description {
@@ -183,5 +200,9 @@
 		.label {
 			display: flex;
 		}
+	}
+	
+	em {
+		background-color: #feca35;
 	}
 </style>

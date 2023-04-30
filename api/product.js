@@ -62,3 +62,10 @@ export const getReserveRecord = function(marketerId, currPage, pageSize = 10){
 		method: 'GET',
 	})
 } 
+
+export const productSearch = function(searchContent, currPage, pageSize = 10){
+	return request({
+		url: `${PREFIX}/search/?searchContent=${searchContent}&currPage=${currPage}&pageSize=${pageSize}`,
+		method: 'GET',
+	})
+}

@@ -19,9 +19,6 @@
 				<u-form-item label="联系方式">
 					{{merchant.phoneNumber}}
 				</u-form-item>
-				<u-form-item label="实际负责人信息">
-					{{merchant.principalInfo}}
-				</u-form-item>
 				<u-form-item label="照片">
 					<u-album :urls="merchant.pictureList" keyName="url"></u-album>
 				</u-form-item>
@@ -173,7 +170,7 @@
 					},
 					"createTime": "2000-01-23 16:58:13",
 					"marketerId": 12,
-					"marketerName": "孟晚舟",
+					"marketerName": "",
 					"creditCode": "ABCDE123456789",
 					"unitName": "金拱门（中国）有限公司",
 					"address": "江苏省南京市鼓楼区广州路19号",
