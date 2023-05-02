@@ -58,7 +58,7 @@
 				model: {
 					product: {
 						marketerId: 1,
-						productId: 130,
+						productId: null,
 						customerName: '',
 						cardId: '',
 						customerId: '', // 身份证号
