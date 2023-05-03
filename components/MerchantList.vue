@@ -172,7 +172,7 @@
 
 			},
 			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员预约选择, mode==2 选择商户查看预约单列表
-				if (mode == 1) {
+				if (mode == 1 || mode == 2) {
 					getAllMerchants(this.currPage).then(res => {
 						this.records = res.data.records;
 					})
