@@ -19,12 +19,18 @@
 			<u-form-item label="客户银行卡号" prop="product.cardId" borderBottom ref="cardId">
 				<u--input value="number" v-model="model.product.cardId" placeholder="请输入客户银行卡号"></u--input>
 			</u-form-item>
+			<u-form-item label="所属机构" prop="product.cardId" borderBottom ref="cardId">
+				<u--input value="number" v-model="model.product.cardId" placeholder="请输入客户银行卡号"></u--input>
+			</u-form-item>
 			<u-form-item label="预约地点" prop="product.reserveLocation" borderBottom>
 				<u--input style="width: 60%;" v-model="model.product.reserveLocation" suffixIcon="map-fill"
 					suffixIconStyle="color: #909399" placeholder="请定位" disabled></u--input>
-				<template #right>
-					<u-button @tap="getAddressText()">点击定位</u-button>
-				</template>
+			
+			</u-form-item>
+			<u-form-item label="所属商户" prop="product.reserveLocation" borderBottom>
+				<u--input @tap="toMerchantList"  v-model="model.product.merchantName" suffixIcon="arrow-right"
+					suffixIconStyle="color: #909399" placeholder="请选择商户" disabled></u--input>
+				
 			</u-form-item>
 		</u--form>
 		<u-button type="primary" @tap="submit">提交</u-button>
@@ -53,7 +59,9 @@
 					customerId: '423232399345666644', // 身份证号
 					contact: '13588842522',
 					reserveTime: '2022-02-02 19:22:33',
-					reserveLocation: '江苏省南京市鼓楼区汉口路22号'
+					reserveLocation: '江苏省南京市鼓楼区汉口路22号',
+					merchantId: 0,
+					merchantName: '',
 				},
 				model: {
 					product: {
@@ -64,6 +72,8 @@
 						customerId: '', // 身份证号
 						contact: '',
 						reserveLocation: '',
+						merchantId: 0,
+						merchantName: '',
 					}
 				},
 				rules: {
@@ -105,6 +115,11 @@
 			}
 		},
 		methods: {
+			toMerchantList(){
+				uni.navigateTo({
+					url: '/pages/merchant/MerchantSelect'
+				})
+			},
 			getAddressText: function() {
 				uni.getLocation({
 					success: (res) => {
@@ -142,7 +157,8 @@
 							cardId: this.product.cardId,
 							customerId: this.product.customerId,
 							contact: this.product.contact,
-							reserveLocation: this.product.reserveLocation
+							reserveLocation: this.product.reserveLocation,
+							merchantId: this.product.merchantId,
 						}).then(res => {
 							console.log(res)
 						})
@@ -164,6 +180,14 @@
 		onLoad(option) {
 			// this.getAddressText()
 			// getAddress()
+			uni.$on(
+				'selectedMerchant',
+				(data) => {
+					this.model.product.merchantId = data.merchantId;
+					this.model.product.merchantName = data.merchantName;
+					// console.log('this.userInfo.institutionId:', this.userInfo.institutionId)
+				}
+			)
 			this.product.name = option.name;
 			this.model.product.productId = option.id;
 			this.product.productId = option.id;
@@ -171,6 +195,9 @@
 		},
 		onReady() {
 			this.$refs.reserveForm.setRules(this.rules);
+		},
+		destroyed() {
+			uni.$off('selectedMerchant');
 		}
 	}
 </script>

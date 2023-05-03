@@ -1,0 +1,27 @@
+<template>
+	<view>
+		<merchant-list :mode="0"></merchant-list>
+	</view>
+</template>
+
+<script>
+	import MerchantList from '@/components/MerchantList.vue'
+
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		components:{
+			MerchantList
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style>
+
+</style>

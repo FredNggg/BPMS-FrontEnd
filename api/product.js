@@ -26,7 +26,7 @@ export const createProduct = function({
 };
 
 export const reserveProduct = function(
-	{marketerId, productId, customerName, cardId, customerId, contact, reserveTime, reserveLocation}
+	{marketerId, productId, customerName, cardId, customerId, contact, reserveTime, reserveLocation, merchantId}
 ){
 	const data = {marketerId: marketerId,
 		productId: productId,
@@ -34,7 +34,9 @@ export const reserveProduct = function(
 		cardId: cardId,
 		customerId: customerId,
 		contact: contact,
-		reserveLocation: reserveLocation};
+		reserveLocation: reserveLocation,
+		merchantId: merchantId};
+		
 	return request({
 		url: `${PREFIX}/reservation/creation`,
 		method: 'POST',

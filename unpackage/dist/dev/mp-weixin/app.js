@@ -141,6 +141,7 @@ if (!Math) {
   "./pages/user/UserManage.js";
   "./pages/merchant/MerchantCheck.js";
   "./pages/merchant/MerchantManage.js";
+  "./pages/merchant/MerchantSelect.js";
   "./pages/product/ReserveList.js";
   "./pages/grid/GridCheck.js";
   "./pages/grid/GridCreate.js";

@@ -2,15 +2,14 @@
 * 建档列表
 */
 <template>
-	
+
 	<view>
 		<u-sticky>
-			<u-search placeholder="请输入商户名称"
-			@change="search" :clearabled="true" v-model="keyword"></u-search>
+			<u-search placeholder="请输入商户名称" @change="search" :clearabled="true" v-model="keyword"></u-search>
 		</u-sticky>
 		<u-list>
 			<u-list-item v-for="(item, index) in records">
-				<view class="merchant" @tap="toDetail(item.id)">
+				<view class="merchant" @tap="toDetail(item.id, item.fullName)">
 					<u--image :src="item.doorwayUrl" width="100rpx" height="100rpx" radius="20rpx"></u--image>
 					<view class="text">
 						<view class="title">{{item.abbreviation}}</view>
@@ -146,12 +145,26 @@
 			};
 		},
 		methods: {
-			toDetail(id) {
-				uni.navigateTo({
-					url: `/pages/merchant/MerchantDetail?id=${id}`
-				})
+			toDetail(id, fullName) {
+				if (this.mode == 0) {
+					const item = {
+						merchantId: id,
+						merchantName: fullName
+					};
+
+					uni.$emit('selectedMerchant', item)
+					// uni.setStorageSync('selectedInstitution',item)
+					uni.navigateBack({
+						delta: 1
+					});
+				} else if (this.mode == 1) {
+					uni.navigateTo({
+						url: `/pages/merchant/MerchantDetail?id=${id}`
+					})
+				}
+
 			},
-			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员获取自己
+			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员预约选择
 				if (mode == 1) {
 					getAllMerchants(this.currPage).then(res => {
 						this.records = res.data.records;
