@@ -27,6 +27,7 @@
     "pages/grid/GridCheck",
     "pages/grid/GridCreate",
     "pages/institution/InstitutionList",
+    "pages/product/ReserveListByProduct",
     "pages/merchant/MerchantReserveList",
     "pages/grid/GridDetail",
     "pages/about/register-success"

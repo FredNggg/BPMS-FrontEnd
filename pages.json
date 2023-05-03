@@ -150,7 +150,12 @@
 			"style": {
 				"navigationBarTitleText": "机构选择"
 			}
-		}, {
+		},{
+			"path": "pages/product/ReserveListByProduct",
+			"style": {
+				"navigationBarTitleText": "预约单列表"
+			}
+		},  {
 			"path": "pages/merchant/MerchantReserveList",
 			"style": {
 				"navigationBarTitleText": "预约单列表"

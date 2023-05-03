@@ -1,5 +1,7 @@
 <template>
+	
 	<view class="product">
+		<u-button @tap="toReserveList(this.productId)">预约列表</u-button>
 		<u--form labelPosition="left" labelWidth="180rpx">
 			<u-form-item label="产品名称">
 				{{product.name}}
@@ -41,7 +43,11 @@
 			}
 		},
 		methods: {
-
+			toReserveList(id){
+				uni.navigateTo({
+					url: `/pages/product/ReserveListByProduct?id=${id}`
+				})
+			}
 		},
 		onLoad(option) {
 			this.productId = option.id;

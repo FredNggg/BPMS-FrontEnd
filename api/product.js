@@ -85,3 +85,10 @@ export const getMerchantReserveList = (merchantId, currPage, pageSize = 10) => {
 		method: 'GET',
 	})
 }
+
+export const getProductReserveList = (productId, currPage, pageSize = 10) => {
+	return request({
+		url: `${PREFIX}/${productId}/reservation?currPage=${currPage}&pageSize=${pageSize}`,
+		method: 'GET',
+	})
+}
