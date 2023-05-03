@@ -127,6 +127,7 @@ if (!Math) {
   "./pages/about/register.js";
   "./pages/product/ProductReserve.js";
   "./pages/product/ProductList.js";
+  "./pages/product/ProductDetail.js";
   "./pages/product/ProductHistory.js";
   "./pages/merchant/MerchantCreate.js";
   "./pages/merchant/MerchantDetail.js";
@@ -140,6 +141,7 @@ if (!Math) {
   "./pages/user/UserManage.js";
   "./pages/merchant/MerchantCheck.js";
   "./pages/merchant/MerchantManage.js";
+  "./pages/product/ReserveList.js";
   "./pages/grid/GridCheck.js";
   "./pages/grid/GridCreate.js";
   "./pages/institution/InstitutionList.js";

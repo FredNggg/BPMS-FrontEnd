@@ -3,7 +3,7 @@
 		<view class="product">
 			<view style="font-weight: bold;">您正在预约的产品是：</view>
 			<view style="text-align: center;line-height: 80rpx;">{{product.name}}</view>
-			<view style="font-weight: bold;">产品id：{{product.productId}}</view>
+			<!-- <view style="font-weight: bold;">产品id：{{product.productId}}</view> -->
 		</view>
 		<u--form :model="model" ref="reserveForm" label-position="top" label-width="200px">
 			<u-form-item label="客户姓名" prop="product.customerName" borderBottom ref="customoerName">
@@ -165,6 +165,7 @@
 			// this.getAddressText()
 			// getAddress()
 			this.product.name = option.name;
+			this.model.product.productId = option.id;
 			this.product.productId = option.id;
 			this.product.marketerId = uni.getStorageSync('userInfo').id;
 		},

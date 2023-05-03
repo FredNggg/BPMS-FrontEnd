@@ -49,6 +49,13 @@ export const getAllProducts = function(currPage, pageSize = 10) {
 	})
 }
 
+export const getProductDetail = function(productId) {
+	return request({
+		url: `${PREFIX}/${productId}`,
+		method: 'GET',
+	})
+}
+
 export const getProductsByType = function(type, currPage, pageSize = 10) {
 	return request({
 		url: `${PREFIX}/type/${type}?currPage=${currPage}&pageSize=${pageSize}`,

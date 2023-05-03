@@ -12,11 +12,14 @@
 		<u-list @scrolltolower="scrolltolower">
 			<u-list-item v-for="(item, index) in products">
 				<view class="product-item">
-					<rich-text class="product-name" :nodes="item.name"></rich-text>
-
-					<view class="product-description">
-						{{item.description}}
+					<view class="head">
+						<rich-text class="product-name" :nodes="item.name"></rich-text>
+						<view class="reserveNum">预约人数: {{item.reserveNum}}</view>
 					</view>
+					<u-divider></u-divider>
+					<!-- <view class="product-description">
+						{{item.description}}
+					</view> -->
 					<view class="label">
 						<u-tag :color="typeColor[item.type]" :border-color="typeColor[item.type]"
 							:text="type[item.type]" plain size="mini"></u-tag>
@@ -25,7 +28,7 @@
 							<u-icon label="预约" @tap="reserve(item.id, item.name)" label-pos="left" name="arrow-right"></u-icon>
 						</view>
 						<view v-if="this.mode === 1" style="margin-left: auto;">
-							<u-icon label="查看详情"  label-pos="left" name="arrow-right"></u-icon>
+							<u-icon label="查看详情" @tap="toDetail(item.id)"   label-pos="left" name="arrow-right"></u-icon>
 						</view>
 					</view>
 				</view>
@@ -62,7 +65,9 @@
 						type: 2,
 						createTime: "2023-02-10 15:36:13",
 						adminId: 40,
-						description: "写七子重命制手维样使山器门名。太做量任开率也装易门关收始。最候和平拉光正热族候部类种和更。"
+						description: "写七子重命制手维样使山器门名。太做量任开率也装易门关收始。最候和平拉光正热族候部类种和更。",
+						"reserveNum":1
+
 					},
 					{
 						id: 128,
@@ -70,7 +75,9 @@
 						type: 0,
 						createTime: "2023-02-10 15:36:13",
 						adminId: 40,
-						description: "本基金主要投资于医疗健康相关行业股票,在有效控制投资组合风险的前提下,通过积极主动的资产配置,力争获得超越业绩比较基准的收益。"
+						description: "本基金主要投资于医疗健康相关行业股票,在有效控制投资组合风险的前提下,通过积极主动的资产配置,力争获得超越业绩比较基准的收益。",
+						"reserveNum":1
+
 					},
 					
 				]
@@ -106,6 +113,12 @@
 					)
 				}
 
+			},
+			toDetail(id){
+				uni.navigateTo({
+					url: `/pages/product/ProductDetail?id=${id}`,
+					animationType: 'slide-in-bottom',
+				})
 			},
 			search(value) {
 				this.currPage = 1;
@@ -178,11 +191,22 @@
 		padding: 16rpx 24rpx;
 		background-color: white;
 		border-radius: 20rpx;
+		.head{
+			display: flex;
+			
+		}
 
 		.product-name {
 			font-size: 32rpx;
 			font-weight: bold;
 			
+		}
+		.reserveNum{
+			text-align: right;
+			justify-content: flex-end;
+			margin-left: auto;
+			font-size: 30rpx;
+			color: #64666b;
 		}
 
 		.product-description {

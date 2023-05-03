@@ -54,6 +54,11 @@
 			"style": {
 				"navigationBarTitleText": "产品列表"
 			}
+		},{
+			"path": "pages/product/ProductDetail",
+			"style": {
+				"navigationBarTitleText": "产品详情"
+			}
 		}, {
 			"path": "pages/product/ProductHistory",
 			"style": {
@@ -118,6 +123,12 @@
 			"path": "pages/merchant/MerchantManage",
 			"style": {
 				"navigationBarTitleText": "商户管理"
+			}
+		}, 
+		{
+			"path": "pages/product/ReserveList",
+			"style": {
+				"navigationBarTitleText": "预约单列表"
 			}
 		}, {
 			"path": "pages/grid/GridCheck",
