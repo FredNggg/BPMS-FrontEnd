@@ -71,6 +71,16 @@ export const ADMIN_LIST = [
                 iconPath: '/static/icon/image/ProductManage.png',
                 pagePath: '/pages/product/ProductManage',
             },
+			{
+			    name: '产品管理',
+			    iconPath: '/static/icon/image/ProductManage.png',
+			    pagePath: '/pages/product/ProductManage',
+			},
+			{
+			    name: '预约列表',
+			    iconPath: '/static/icon/image/ProductManage.png',
+			    pagePath: '/pages/product/ReserveList',
+			},
         ]
     },
     {

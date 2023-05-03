@@ -1,15 +1,13 @@
-/**
-* 获取某营销人员的产品预约记录
-*/
+
 <template>
 	<view>
-		<view style="margin-left: 40rpx;">您的客户预约记录：</view>
+		<view style="margin-left: 40rpx;">该商户的预约记录：</view>
 		<view>
 			<u-collapse>
 				<u-collapse-item v-for="(item, index) in records" :title="item.customerName" :value="item.reserveTime">
 					<u--form label-width="180rpx">
-						<u-form-item label="预约单号">{{item.id}}</u-form-item>
-						<!-- <u-form-item label="预约产品号">{{item.productId}}</u-form-item> -->
+						<!-- <u-form-item label="预约单号">{{item.id}}</u-form-item> -->
+						<u-form-item label="预约产品号">{{item.productId}}</u-form-item>
 						<u-form-item label="预约者">{{item.customerName}}</u-form-item>
 						<u-form-item label="联系方式">{{item.contact}}</u-form-item>
 						<u-form-item label="预约时间">{{item.reserveTime}}</u-form-item>
@@ -24,12 +22,13 @@
 
 <script>
 	import {
-		getReserveRecord
+		getMerchantReserveList
 	} from '@/api/product.js'
 
 	export default {
 		data() {
 			return {
+				merchantId: 0,
 				records: [{
 						"id": 100,
 						"marketerId": 1,
@@ -64,21 +63,22 @@
 						"reserveLocation": "[32.132635, 118.957374]"
 					}
 				],
-				marketerId: 1,
+
 				currPage: 1,
 			}
 		},
 		methods: {
 
 		},
-		onReady() {
-			this.marketerId = uni.getStorageSync('userInfo').id;
-			getReserveRecord(this.marketerId, this.currPage).then(res => {
+		onLoad(option) {
+			this.merchantId = option.id;
+			console.log(option.id)
+			getMerchantReserveList(this.merchantId, this.currPage).then(res => {
 				this.records = res.data.records;
 			})
 		},
 		onReachBottom() {
-			getReserveRecord(this.marketerId, this.currPage + 1).then(res => {
+			getMerchantReserveList(this.merchantId, this.currPage + 1).then(res => {
 				if(res.data.records.length > 0){
 					this.records = this.records.concat(res.data.records);
 					this.currPage++;

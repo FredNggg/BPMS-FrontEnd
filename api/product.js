@@ -78,3 +78,10 @@ export const productSearch = function(searchContent, currPage, pageSize = 10){
 		method: 'GET',
 	})
 }
+
+export const getMerchantReserveList = (merchantId, currPage, pageSize = 10) => {
+	return request({
+		url: `${PREFIX}/reservation/merchant/${merchantId}&currPage=${currPage}&pageSize=${pageSize}`,
+		method: 'GET',
+	})
+}

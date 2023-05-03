@@ -149,3 +149,4 @@ export const searchMerchant = (fullName, currPage, pageSize = 10) => {
 		method: 'GET',
 	})
 }
+

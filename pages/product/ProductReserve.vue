@@ -19,18 +19,18 @@
 			<u-form-item label="客户银行卡号" prop="product.cardId" borderBottom ref="cardId">
 				<u--input value="number" v-model="model.product.cardId" placeholder="请输入客户银行卡号"></u--input>
 			</u-form-item>
-			<u-form-item label="所属机构" prop="product.cardId" borderBottom ref="cardId">
-				<u--input value="number" v-model="model.product.cardId" placeholder="请输入客户银行卡号"></u--input>
-			</u-form-item>
+
 			<u-form-item label="预约地点" prop="product.reserveLocation" borderBottom>
 				<u--input style="width: 60%;" v-model="model.product.reserveLocation" suffixIcon="map-fill"
 					suffixIconStyle="color: #909399" placeholder="请定位" disabled></u--input>
-			
+				<template #right>
+					<u-button @tap="getAddressText()">点击定位</u-button>
+				</template>
 			</u-form-item>
 			<u-form-item label="所属商户" prop="product.reserveLocation" borderBottom>
-				<u--input @tap="toMerchantList"  v-model="model.product.merchantName" suffixIcon="arrow-right"
+				<u--input @tap="toMerchantList" v-model="model.product.merchantName" suffixIcon="arrow-right"
 					suffixIconStyle="color: #909399" placeholder="请选择商户" disabled></u--input>
-				
+
 			</u-form-item>
 		</u--form>
 		<u-button type="primary" @tap="submit">提交</u-button>
@@ -46,7 +46,7 @@
 		reserveProduct
 	} from '@/api/product.js';
 	import dayjs from 'dayjs';
-	
+
 	export default {
 		data() {
 			return {
@@ -115,7 +115,7 @@
 			}
 		},
 		methods: {
-			toMerchantList(){
+			toMerchantList() {
 				uni.navigateTo({
 					url: '/pages/merchant/MerchantSelect'
 				})
@@ -140,7 +140,7 @@
 						})
 					},
 					complete: (res) => {
-						
+
 					}
 				})
 

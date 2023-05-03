@@ -146,6 +146,7 @@ if (!Math) {
   "./pages/grid/GridCheck.js";
   "./pages/grid/GridCreate.js";
   "./pages/institution/InstitutionList.js";
+  "./pages/merchant/MerchantReserveList.js";
   "./pages/grid/GridDetail.js";
   "./pages/about/register-success.js";
 }

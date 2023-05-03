@@ -53,6 +53,7 @@
 				currPage: 1,
 				userId: null,
 				records: [{
+						id: 1,
 						"recordId": 65,
 						"fullName": "华为电子通信有限公司(南京)鼓楼营业部",
 						"abbreviation": "华为（南京鼓楼分部）",
@@ -85,6 +86,7 @@
 					},
 
 					{
+						id: 1,
 						"recordId": 46,
 						"fullName": "更收有取达八",
 						"abbreviation": "cillum in",
@@ -120,6 +122,7 @@
 						"marketerName": "和受开学再群"
 					},
 					{
+						id: 1,
 						"recordId": 91,
 						"fullName": "质才三色",
 						"abbreviation": "anim irure ut",
@@ -161,10 +164,14 @@
 					uni.navigateTo({
 						url: `/pages/merchant/MerchantDetail?id=${id}`
 					})
+				} else if (this.mode == 2) {
+					uni.navigateTo({
+						url: `/pages/merchant/MerchantReserveList?id=${id}`
+					})
 				}
 
 			},
-			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员预约选择
+			getMerchantList(mode) { // mode==1 管理员获取全部, mode==0 营销人员预约选择, mode==2 选择商户查看预约单列表
 				if (mode == 1) {
 					getAllMerchants(this.currPage).then(res => {
 						this.records = res.data.records;
