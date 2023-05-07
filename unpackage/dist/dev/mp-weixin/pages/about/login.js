@@ -77,11 +77,9 @@ const _sfc_main = {
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o(($event) => $options.login(0)),
-    b: common_vendor.o(($event) => $options.login(1)),
-    c: common_vendor.o(($event) => $options.weChatLogin(0)),
-    d: common_vendor.o(($event) => $options.weChatLogin(1)),
-    e: common_vendor.o(($event) => $options.phoneLogin())
+    a: common_vendor.o(($event) => $options.weChatLogin(0)),
+    b: common_vendor.o(($event) => $options.weChatLogin(1)),
+    c: common_vendor.o(($event) => $options.phoneLogin())
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/fred/Course/Graduation Project/BPMS-FrontEnd/pages/about/login.vue"]]);

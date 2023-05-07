@@ -1,10 +1,11 @@
 <template>
-	<button @tap="login(0)">
+<!-- 	<button @tap="login(0)">
 		点击以营销人员身份登录
 	</button>
 	<button @tap="login(1)">
 		点击以管理员身份登录
-	</button>
+	</button> -->
+	
 	<button type="primary" @tap="weChatLogin(0)">微信一键登录(管理员)</button>
 	<button type="primary" @tap="weChatLogin(1)">微信一键登录(营销人员)</button>
 	<button @tap="phoneLogin()">手机号码登录</button>
@@ -94,4 +95,9 @@
 </script>
 
 <style>
+	
+	button{
+		
+		margin: 30rpx 40rpx;
+	}
 </style>

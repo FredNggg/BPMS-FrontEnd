@@ -1,4 +1,7 @@
 
+.news{
+		padding: 20rpx;
+}
 .swiper {
 		height: 400rpx;
 		padding: 20rpx;
@@ -29,4 +32,35 @@
 .title {
 		font-size: 36rpx;
 		color: #8f8f94;
+}
+.news-list {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+}
+.news-item {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		border: 1px solid #ccc;
+		padding: 12px;
+		border-radius: 4px;
+}
+.news-title {
+		font-size: 18px;
+		font-weight: bold;
+}
+.news-summary {
+		font-size: 16px;
+		line-height: 1.5;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		/* 设置两行文字 */
+		-webkit-box-orient: vertical;
+}
+.news-time {
+		font-size: 14px;
+		color: #999;
 }

@@ -8,7 +8,7 @@
 					<u-form-item label="用户姓名">{{item.name}}</u-form-item>
 					<u-form-item label="手机号码">{{item.phone}}</u-form-item>
 					<u-form-item label="注册时间">{{item.registerTime}}</u-form-item>
-					<u-form-item label="状态">{{item.state}}</u-form-item>
+					<u-form-item label="状态">{{state[item.state]}}</u-form-item>
 					<view class="button">
 						<view class="item"><u-button @tap="setState(item.id, 1)" type="success">通过</u-button></view>
 						<view class="item"><u-button @tap="setState(item.id, 3)" type="error">驳回</u-button></view>
@@ -34,28 +34,28 @@
 				state: ['申请中', '在职', '已离职', '申请失败'],
 				currPage: 1,
 				userList: [
-				// 	{
-				// 	id: 2,
-				// 	name: "张三",
-				// 	phone: "18811112222",
-				// 	institution: 4,
-				// 	register_time: "2022-11-10 19:19:30",
-				// 	state: 2 // 0 - 申请，1 - 在职，2 - 离职
-				// }, {
-				// 	id: 3,
-				// 	name: "张四五",
-				// 	phone: "18811112222",
-				// 	institution: 4,
-				// 	register_time: "2022-11-10 19:19:30",
-				// 	state: 1
-				// }, {
-				// 	id: 4,
-				// 	name: "王小明",
-				// 	phone: "18811112222",
-				// 	institution: 4,
-				// 	register_time: "2022-11-10 19:19:30",
-				// 	state: 0
-				// }, 
+					{
+					id: 2,
+					name: "张三",
+					phone: "18811112222",
+					institution: 4,
+					registerTime: "2022-11-10 19:19:30",
+					state: 0 // 0 - 申请，1 - 在职，2 - 离职
+				}, {
+					id: 3,
+					name: "张四五",
+					phone: "18811112222",
+					institution: 4,
+					registerTime: "2023-04-10 08:44:20",
+					state: 0
+				}, {
+					id: 4,
+					name: "王小明",
+					phone: "18811112222",
+					institution: 4,
+					registerTime: "2023-04-25 19:44:50",
+					state: 0
+				}, 
 				],
 
 			}

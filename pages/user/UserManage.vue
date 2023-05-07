@@ -15,7 +15,7 @@
 						<u-form-item label="用户姓名">{{item.name}}</u-form-item>
 						<u-form-item label="手机号码">{{item.phone}}</u-form-item>
 						<u-form-item label="注册时间">{{item.register_time}}</u-form-item>
-						<u-form-item label="状态">{{item.state}}</u-form-item>
+						<u-form-item label="状态">{{state[item.state]}}</u-form-item>
 					</u--form>
 				</u-collapse-item>
 			</u-collapse>
@@ -33,7 +33,7 @@
 					['申请中', '在职', '已离职','全部人员']
 				],
 				state: ['申请中', '在职', '已离职', '申请失败'],
-				filterText: 'aaa',
+				filterText: '全部成员',
 				userList: [{
 					id: 2,
 					name: "张三",

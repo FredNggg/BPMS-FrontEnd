@@ -108,6 +108,9 @@ const _sfc_main = {
       });
     },
     submit() {
+      common_vendor.index.navigateTo({
+        url: "/pages/about/register-success"
+      });
       this.$refs.form1.validate().then((res) => {
         api_user.checkVerificationCode(this.userInfo.phone, this.userInfo.code).then((res2) => {
           if (res2.code == 200) {

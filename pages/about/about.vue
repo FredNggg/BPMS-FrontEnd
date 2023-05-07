@@ -66,7 +66,7 @@
 </script>
 
 <style>
-
+	
 	.info {
 		display: flex;
 		flex-direction: column;

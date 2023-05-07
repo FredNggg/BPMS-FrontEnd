@@ -154,6 +154,9 @@
 				})
 			},
 			submit() {
+				uni.navigateTo({
+					url: '/pages/about/register-success'
+				})
 				this.$refs.form1.validate().then(res => {
 					checkVerificationCode(this.userInfo.phone, this.userInfo.code).then(res => {
 						if (res.code == 200) { // 验证成功

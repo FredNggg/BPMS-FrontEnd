@@ -1,9 +1,18 @@
-
+.unlogin {
+  width: 100%;
+}
 .icon-wall {
-  margin: 40 rpx 40 rpx;
+  margin: 0rpx 40 rpx;
+  padding: 0rpx 20rpx;
   display: flex;
   flex-wrap: wrap;
+  color: #585b65;
 }
-.title{
+.icon-wall .title {
   width: 100%;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-left: #1a7bfd solid 15rpx;
+  padding-left: 10rpx;
+  margin-bottom: 20rpx;
 }

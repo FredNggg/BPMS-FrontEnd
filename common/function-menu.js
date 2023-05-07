@@ -78,7 +78,7 @@ export const ADMIN_LIST = [
 			},
 			{
 			    name: '预约列表',
-			    iconPath: '/static/icon/image/ProductManage.png',
+			    iconPath: '/static/icon/image/ReserveList.png',
 			    pagePath: '/pages/product/ReserveList',
 			},
         ]
