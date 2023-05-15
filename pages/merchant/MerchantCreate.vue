@@ -339,7 +339,8 @@
 				})
 				OBSUpload(event.file.url, (res) => {
 					if (res.statusCode == '204') {
-						const spliter = res.header.Location[0].split('/');
+						const spliter = res.header.Location.split('/');
+						console.log(res.header)
 						const fileName = spliter[spliter.length - 1];
 						console.log(fileName)
 						const url = config.EndPoint + '/' + fileName;
