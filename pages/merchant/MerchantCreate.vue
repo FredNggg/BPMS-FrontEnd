@@ -368,6 +368,16 @@
 				createMerchant(this.recordInfo).then(
 					res => {
 						console.log(res);
+						if(res.code == 200){
+							uni.showToast({
+								title: '提交成功',
+							});
+						} else {
+							uni.showToast({
+								title: res.msg,
+								icon: 'error',
+							});
+						}
 						wx.requestSubscribeMessage({
 							tmplIds: ['4valJSLcPDi0RTYgkuKXEPaSLuVkmGXRCZVvp66cipU',
 								'7Vn5CQ3llVED7A45rn43QqcEVZuL9vIIAKj0d_XGQwA'

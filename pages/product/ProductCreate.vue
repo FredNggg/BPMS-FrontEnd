@@ -102,11 +102,12 @@ import dayjs from 'dayjs';
 							adminId: uni.getStorageSync('userInfo').id,
 						}).then(res => {
 							console.log(res)
+							uni.showToast({
+								title: '提交成功',
+							});
+							// uni.reLaunch({url: '/pages/index/index'});
 						})
-						uni.showToast({
-							title: '提交成功',
-						});
-						uni.reLaunch({url: '/pages/index/index'});
+						
 					}).catch(
 					err => {
 						uni.showToast({
