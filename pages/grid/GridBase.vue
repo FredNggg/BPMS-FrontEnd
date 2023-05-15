@@ -8,8 +8,8 @@
 			<view class="button-list">
 				<cover-view v-show="adminMode === 0">
 					<button class="functions" @tap="switchAdminMode(1)"> 创建网格</button>
-					<button class="functions"> 编辑网格</button>
-					<button class="functions"> 查看网格</button>
+					<!-- <button class="functions"> 编辑网格</button>
+					<button class="functions"> 查看网格</button> -->
 
 				</cover-view>
 				<cover-view v-show="adminMode === 1">

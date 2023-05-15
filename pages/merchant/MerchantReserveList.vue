@@ -8,7 +8,10 @@
 					<u--form label-width="180rpx">
 						<!-- <u-form-item label="预约单号">{{item.id}}</u-form-item> -->
 						<u-form-item label="预约产品号">{{item.productId}}</u-form-item>
+						<u-form-item label="预约产品名">{{item.productName}}</u-form-item>
+						<u-form-item label="预约商户">{{item.merchantFullName}}</u-form-item>
 						<u-form-item label="预约者">{{item.customerName}}</u-form-item>
+						
 						<u-form-item label="联系方式">{{item.contact}}</u-form-item>
 						<u-form-item label="预约时间">{{item.reserveTime}}</u-form-item>
 						<u-form-item label="预约地点">{{item.reserveLocation}}</u-form-item>
