@@ -77,7 +77,7 @@
 					}
 				},
 				rules: {
-					'product.cutomerName': {
+					'product.customerName': {
 						type: 'string',
 						required: true,
 						message: '请填写姓名',
@@ -168,10 +168,10 @@
 					}).catch(
 					err => {
 						console.log(err)
-						// uni.showToast({
-						// 	title: '资料不完整',
-						// 	icon: "error",
-						// })
+						uni.showToast({
+							title: '信息不完整',
+							icon: "error",
+						})
 					}
 
 				)

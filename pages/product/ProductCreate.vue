@@ -101,17 +101,24 @@ import dayjs from 'dayjs';
 							date: dateText,
 							adminId: uni.getStorageSync('userInfo').id,
 						}).then(res => {
+							if(res.code == 200){
+								uni.showToast({
+								title: '发布成功',
+								});
+							} else {
+								uni.showToast({
+									title: res.msg,
+									icon: 'error',
+								});
+							}
 							console.log(res)
-							uni.showToast({
-								title: '提交成功',
-							});
 							// uni.reLaunch({url: '/pages/index/index'});
 						})
 						
 					}).catch(
 					err => {
 						uni.showToast({
-							title: '资料不完整',
+							title: '信息不完整',
 							icon: "error",
 						})
 					}
